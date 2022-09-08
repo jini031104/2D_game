@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6523473880289525683}
   - component: {fileID: 5172944356767101904}
   - component: {fileID: 5391358788883959959}
+  - component: {fileID: -8761556470016112889}
   m_Layer: 0
   m_Name: colonCoin-
   m_TagString: Untagged
@@ -193,6 +194,18 @@ BoxCollider2D:
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &5391358788883959959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6523473880289525676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d87a3d25bbf4a448faff696e846a66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8761556470016112889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
