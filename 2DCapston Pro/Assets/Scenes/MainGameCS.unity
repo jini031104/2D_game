@@ -188,7 +188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 159867104779919734, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
       propertyPath: m_TagString
-      value: CoinTag
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
@@ -262,7 +262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 159867104779919734, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
       propertyPath: m_TagString
-      value: CoinTag
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
@@ -692,7 +692,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 159867104779919734, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
       propertyPath: m_TagString
-      value: CoinTag
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
@@ -864,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 159867104779919734, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
       propertyPath: m_TagString
-      value: CoinTag
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
@@ -1179,7 +1179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 159867104779919734, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
       propertyPath: m_TagString
-      value: CoinTag
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
@@ -1364,7 +1364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 159867104779919734, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
       propertyPath: m_TagString
-      value: CoinTag
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
@@ -1574,7 +1574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 159867104779919734, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
       propertyPath: m_TagString
-      value: CoinTag
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 409ea59d0761eae4388397363a16cb54, type: 3}
