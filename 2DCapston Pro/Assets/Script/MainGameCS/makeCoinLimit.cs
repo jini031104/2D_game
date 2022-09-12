@@ -13,7 +13,7 @@ public class makeCoinLimit : MonoBehaviour
     int diceNum;
 
     //bool firstChoice;
-    
+
     // Start is called before the first frame update
     void Start()
     {

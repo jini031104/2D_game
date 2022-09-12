@@ -40,6 +40,8 @@ public class GameStartDice : MonoBehaviour
 
         w = rotationVal.GetLength(0);
         v = diceVall.GetLength(0);
+
+        Button.SetActive(false);
     }
 
     // Update is called once per frame
@@ -49,7 +51,7 @@ public class GameStartDice : MonoBehaviour
             if(enemyDiceVal <= playerDiceVal){
                 Button.SetActive(true);
                 firstChoice = true;
-                gameStart();
+                //gameStart();
             }
             else
                 gameStart();
@@ -59,7 +61,7 @@ public class GameStartDice : MonoBehaviour
         SmallDice(enemyDice, enemyDiceScale);
     }
 
-    void gameStart(){
+    public void gameStart(){
         if(gameStartCheck){
             if(Input.GetMouseButtonDown(0))
                 SceneManager.LoadScene("MainGameCS");
