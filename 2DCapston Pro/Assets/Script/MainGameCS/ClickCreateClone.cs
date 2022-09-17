@@ -29,7 +29,9 @@ public class ClickCreateClone : MonoBehaviour
     }
     public void OnMouseDown()
     {
-        GameObject clone = Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
-        makeNum++;
+        if(makeCoinAfterDice){
+            GameObject clone = Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
+            makeNum++;
+        }
     }
 }

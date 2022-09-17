@@ -5,12 +5,11 @@ using UnityEngine;
 public class makeCoinLimit : MonoBehaviour
 {
     GameObject[] coinTag;
-    public bool startDiceCheck, diceReplay;
-
-    int coinCountResult;
 
     int[] coinNum = new int[7];
-    int diceNum;
+    int coinCountResult, diceNum;
+
+    public bool startDiceCheck, diceReplay;
 
     //bool firstChoice;
 
@@ -26,9 +25,6 @@ public class makeCoinLimit : MonoBehaviour
     {
         startDiceCheck = GameObject.Find("dice").GetComponent<DiceRotation>().startDice;
         // firstChoice = GameObject.Find("playerDice").GetComponent<GameStartDice>().FirstChoice;
-
-        // if(firstChoice)
-        //    coinTag[6].SetActive(true);
 
         if (startDiceCheck)
         {
