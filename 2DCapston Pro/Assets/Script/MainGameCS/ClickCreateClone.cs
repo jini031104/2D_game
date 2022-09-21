@@ -9,7 +9,8 @@ public class ClickCreateClone : MonoBehaviour
     [SerializeField]
     private Transform spawnPoint;
 
-    public int makeNum;
+    public int MakeNum => makeNum;
+    int makeNum;
     bool startDiceCheck;
     bool makeCoinAfterDice;
 
@@ -23,7 +24,7 @@ public class ClickCreateClone : MonoBehaviour
     void Update()
     {
         // If DiceNum and make CoinNum same, We have Dice roll replay check.
-        makeCoinAfterDice = GameObject.Find("coin").GetComponent<makeCoinLimit>().startDiceCheck;
+        makeCoinAfterDice = GameObject.Find("coin").GetComponent<makeCoinLimit>().StartDiceCheck;
         if (!makeCoinAfterDice)
             makeNum = 0;
     }

@@ -15,6 +15,6 @@ public class GetCoinValue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(transform.gameObject.name + ": " + coinValue);
     }
 }

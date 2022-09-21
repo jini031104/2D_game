@@ -9,7 +9,12 @@ public class makeCoinLimit : MonoBehaviour
     int[] coinNum = new int[7];
     int coinCountResult, diceNum;
 
-    public bool startDiceCheck, diceReplay;
+    public bool StartDiceCheck => startDiceCheck;
+    public bool DiceReplay => diceReplay;
+    bool startDiceCheck, diceReplay;
+
+    public bool DiceChange => diceChange;
+    bool diceChange;
 
     //bool firstChoice;
 
@@ -23,19 +28,20 @@ public class makeCoinLimit : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        startDiceCheck = GameObject.Find("dice").GetComponent<DiceRotation>().startDice;
+        startDiceCheck = GameObject.Find("dice").GetComponent<DiceRotation>().StartDice;
         // firstChoice = GameObject.Find("playerDice").GetComponent<GameStartDice>().FirstChoice;
+        diceChange = GameObject.Find("dice").GetComponent<DiceRotation>().DiceChange;
 
-        if (startDiceCheck)
+        if (startDiceCheck) // 주사위 클릭하면 작동함.
         {
             diceReplay = true;
-            diceNum = GameObject.Find("dice").GetComponent<DiceRotation>().indexVall;
+            diceNum = GameObject.Find("dice").GetComponent<DiceRotation>().IndexVall;
             diceNum++;
 
             coinCountResult = 0;
             for (int i = 0; i < coinTag.Length; i++)
             {
-                coinNum[i] = coinTag[i].GetComponent<ClickCreateClone>().makeNum;
+                coinNum[i] = coinTag[i].GetComponent<ClickCreateClone>().MakeNum;
                 coinCountResult += coinNum[i];
             }
             Debug.Log("make Coin Num: " + coinCountResult);
@@ -46,6 +52,7 @@ public class makeCoinLimit : MonoBehaviour
             {
                 startDiceCheck = false;
                 diceReplay = false;
+                diceChange = true;
             }
         }
         else

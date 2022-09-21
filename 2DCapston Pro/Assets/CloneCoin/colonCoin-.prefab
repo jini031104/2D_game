@@ -94,10 +94,10 @@ GameObject:
   - component: {fileID: 6523473880289525683}
   - component: {fileID: 5172944356767101904}
   - component: {fileID: 5391358788883959959}
-  - component: {fileID: -8761556470016112889}
+  - component: {fileID: 8976753609467076623}
   m_Layer: 0
   m_Name: colonCoin-
-  m_TagString: Untagged
+  m_TagString: ClonCoin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d87a3d25bbf4a448faff696e846a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-8761556470016112889
+--- !u!114 &8976753609467076623
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,6 +214,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6523473880289525676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79d87a3d25bbf4a448faff696e846a66, type: 3}
+  m_Script: {fileID: 11500000, guid: 217537387f72e4e30873d03213dac4c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinValue: 0
