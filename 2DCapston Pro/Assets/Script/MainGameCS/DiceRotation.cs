@@ -46,12 +46,12 @@ public class DiceRotation : MonoBehaviour
 
         if (playerDice){
             Debug.Log("Player!");
-            SmallDice();
         }
         else if(enemyDice){
             Debug.Log("Enemy!");
-            SmallDice();
         }
+
+        SmallDice();
 
         // If DiceNum and make CoinNum same, We have Dice roll replay check.
         makeCoinAfterDice = GameObject.Find("coin").GetComponent<makeCoinLimit>().StartDiceCheck;
@@ -65,7 +65,7 @@ public class DiceRotation : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()  // Dice Up. 주사위가 커지기만 함.
+    public void OnMouseDown()  // Dice Up. 주사위가 커지기만 함.
     {
         if (!diceReplay){
             if(playerDice)
