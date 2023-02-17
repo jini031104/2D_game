@@ -16,7 +16,7 @@ public class DiceRotation : MonoBehaviour
     int[,] rotationVal = new int[,] { { 40, 135, 270 },
                                         {40, 45, 90 },
                                         {130, 45, 0 } };    // 떨어지는 동안의 주사위 회전
-    int w, v;
+    int rVall, dVall;
 
     public int IndexVall => indexVall;
     int index, indexVall;
@@ -33,8 +33,8 @@ public class DiceRotation : MonoBehaviour
     {
         diceScale = this.gameObject.transform.localScale;
 
-        w = rotationVal.GetLength(0);
-        v = diceVall.GetLength(0);
+        rVall = rotationVal.GetLength(0);
+        dVall = diceVall.GetLength(0);
     }
 
     // Update is called once per frame
@@ -98,9 +98,9 @@ public class DiceRotation : MonoBehaviour
     }
 
     void DiceDrpoAndValSet(){   // 회전과 값을 결정함.
-        index = Random.Range(0, w);
+        index = Random.Range(0, rVall);
         transform.localEulerAngles = new Vector3(rotationVal[index, 0], rotationVal[index, 1], rotationVal[index, 2]);
-        indexVall = Random.Range(0, v); // 1~6 사이의 주사위 값 결정.
+        indexVall = Random.Range(0, dVall); // 1~6 사이의 주사위 값 결정.
         diceSmall = true;
         startDice = true;
     }

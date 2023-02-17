@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AttackAndDefenseSelect : MonoBehaviour
 {
@@ -19,15 +20,16 @@ public class AttackAndDefenseSelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 각 버튼에서 true/false 여부를 가져온다.
         attack = GameObject.Find("attackButton").GetComponent<AttackButton>().Attack;
         defense = GameObject.Find("defenseButton").GetComponent<DefenseButton>().Defense;
 
-        if (attack)
-            attack = true;
-        else if (defense)
-            defense = true;
+        //if (attack)
+        //    Debug.Log("attack!");
+        //else if (defense)
+        //    Debug.Log("defense!");
 
-        if (attack || defense)
+        if (attack || defense)  // 버튼을 클릭하면 다음 씬으로 넘어갈 수 있게 한다.
             GameObject.Find("playerDice").GetComponent<GameStartDice>().gameStart();
     }
 }
