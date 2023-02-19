@@ -14,7 +14,7 @@ public class MakeCoin : MonoBehaviour
     public int[] PCoin => pCoin;
     int[] pCoin = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
-    bool coinMakeClear;
+    bool coinMakeClear, deleteCoinNum;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +27,11 @@ public class MakeCoin : MonoBehaviour
     {
         coinMakeOk = GameObject.Find("dice").GetComponent<DiceRot>().CoinMakeOk;    // 주사위를 던지면 코인을 만들 수 있다.
         coinMakeClear = GameObject.Find("playerCoin").GetComponent<ClonCoinLimit>().CoinMakeClear;
+        deleteCoinNum = GameObject.Find("startButton").GetComponent<Calculate>().DeleteCoinNum;
+        if (deleteCoinNum){
+            for (int i = 0; i < 7; i++)
+                pCoin[i] = 0;
+        }
     }
 
     void OnMouseDown() {

@@ -7,6 +7,9 @@ public class Calculate : MonoBehaviour
 {
     int[] pCoin = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
     int[] eCoin = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
+    int[] pCoinCopy = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
+    int[] eCoinCopy = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
+
     int[] count = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
     int[] pCoinLeft = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
@@ -19,7 +22,9 @@ public class Calculate : MonoBehaviour
     string[] deleteEnemyCoinName = new string[] { "eClon1(Clone)", "eClon2(Clone)", "eClon3(Clone)", "eClon4(Clone)", "eClon5(Clone)", "eClon6(Clone)", "eClon-(Clone)" };
 
     public bool DeleteOK => deleteOK;
-    bool attack, deleteOK;
+    public bool PlayerTurn => playerTurn;
+    public bool DeleteCoinNum => deleteCoinNum;
+    bool attack, deleteOK, playerTurn, deleteCoinNum;
 
     // Start is called before the first frame update
     void Start(){
@@ -28,17 +33,18 @@ public class Calculate : MonoBehaviour
         enemyHP = (int)GameObject.Find("enemyHP").GetComponent<Slider>().value;
         damage = 0;
         deleteOK = false;
+        deleteCoinNum = false;
     }
 
     // Update is called once per frame
     void Update(){
         attack = GameObject.Find("delete_Coin").GetComponent<delete_Coin>().Attack;
 
-        if(attack)
+        if (attack)
             for (int i=0; i<6; i++)
                 pCoin[i] = GameObject.Find(coinName[i]).GetComponent<MakeCoin>().PCoin[i];
         else
-            for (int i = 0; i < 7; i++)
+            for (int i=0; i<7; i++)
                 pCoin[i] = GameObject.Find(coinName[i]).GetComponent<MakeCoin>().PCoin[i];
 
         eCoin = GameObject.Find("enemyCoin").GetComponent<EnemyMakeCoin>().ECoin;
@@ -55,22 +61,22 @@ public class Calculate : MonoBehaviour
          */
         if (deleteOK){
             for (int i = 0; i < 7; i++){
-                if (pCoin[i] > eCoin[i]){   // 플레이어 코인이 더 많다.
-                    if (count[i] < eCoin[i]){
+                if (pCoinCopy[i] > eCoinCopy[i]){   // 플레이어 코인이 더 많다.
+                    if (count[i] < eCoinCopy[i]){
                         Destroy(GameObject.Find(deleteCoinName[i]));
                         Destroy(GameObject.Find(deleteEnemyCoinName[i]));
                         count[i]++;
                     }
                 }
-                else if (pCoin[i] < eCoin[i]){  // 적 코인이 더 많다.
-                    if (count[i] < pCoin[i]){
+                else if (pCoinCopy[i] < eCoinCopy[i]){  // 적 코인이 더 많다.
+                    if (count[i] < pCoinCopy[i]){
                         Destroy(GameObject.Find(deleteCoinName[i]));
                         Destroy(GameObject.Find(deleteEnemyCoinName[i]));
                         count[i]++;
                     }
                 }
-                else if (pCoin[i] == eCoin[i]){ // 적 코인과 플레이어 코인이 동일하다.
-                    if (count[i] < pCoin[i]){
+                else if (pCoinCopy[i] == eCoinCopy[i]){ // 적 코인과 플레이어 코인이 동일하다.
+                    if (count[i] < pCoinCopy[i]){
                         Destroy(GameObject.Find(deleteCoinName[i]));
                         Destroy(GameObject.Find(deleteEnemyCoinName[i]));
                         count[i]++;
@@ -83,34 +89,33 @@ public class Calculate : MonoBehaviour
     }
 
     void OnMouseDown(){
-        Debug.Log("플레이어 주사위1:" + pCoin[0] + "  주사위2:" + pCoin[1] + "  주사위3:" + pCoin[2] + "  주사위4:" + pCoin[3] + "  주사위5:" + pCoin[4] + "  주사위6:" + pCoin[5] + "  주사위-:" + pCoin[6]);
-        Debug.Log("적 주사위1:" + eCoin[0] + "  주사위2:" + eCoin[1] + "  주사위3:" + eCoin[2] + "  주사위4:" + eCoin[3] + "  주사위5:" + eCoin[4] + "  주사위6:" + eCoin[5] + "  주사위-:" + eCoin[6]);
+        Debug.Log("플레이어 코인1:" + pCoin[0] + "  코인2:" + pCoin[1] + "  코인3:" + pCoin[2] + "  코인4:" + pCoin[3] + "  코인5:" + pCoin[4] + "  코인6:" + pCoin[5] + "  코인-:" + pCoin[6]);
+        Debug.Log("적 코인1:" + eCoin[0] + "  코인2:" + eCoin[1] + "  코인3:" + eCoin[2] + "  코인4:" + eCoin[3] + "  코인5:" + eCoin[4] + "  코인6:" + eCoin[5] + "  코인-:" + eCoin[6]);
+        for (int i = 0; i < 7; i++){
+            pCoinCopy[i] = pCoin[i];
+            eCoinCopy[i] = eCoin[i];
 
-        for(int i = 0; i < 7; i++){
             if (pCoin[i] > eCoin[i]){   // 플레이어 코인이 더 많다.
                 coinLeft = pCoin[i] - eCoin[i];
-                Debug.Log("플레이어" + coinName[i] + " 코인이 " + coinLeft + "개 더 많다.");
                 pCoinLeft[i] = coinLeft;
             }
             else if (pCoin[i] < eCoin[i]){  // 적 코인이 더 많다.
                 coinLeft = eCoin[i] - pCoin[i];
-                Debug.Log("적" + coinName[i] + "코인이 " + coinLeft + "개 더 많다.");
                 eCoinLeft[i] = coinLeft;
             }
             else if (pCoin[i] == eCoin[i] && 0< pCoin[i] && 0 < eCoin[i]){
-                Debug.Log(coinName[i] + "코인의 개수는 같다.");
                 pCoinLeft[i] = 0;
                 eCoinLeft[i] = 0;
             }
         }
         deleteOK = true;
+        playerTurn = true;
+        deleteCoinNum = true;
     }
 
     void OnMouseUp(){
-        Debug.Log("-------------------------------------------------------------------------------");
-        Debug.Log("남아 있는 플레이어 주사위1:" + pCoinLeft[0] + "  주사위2:" + pCoinLeft[1] + "  주사위3:" + pCoinLeft[2] + "  주사위4:" + pCoinLeft[3] + "  주사위5:" + pCoinLeft[4] + "  주사위6:" + pCoinLeft[5] + "  주사위-:" + pCoinLeft[6]);
-        Debug.Log("남아 있는 적 주사위1:" + eCoinLeft[0] + "  주사위2:" + eCoinLeft[1] + "  주사위3:" + eCoinLeft[2] + "  주사위4:" + eCoinLeft[3] + "  주사위5:" + eCoinLeft[4] + "  주사위6:" + eCoinLeft[5] + "  주사위-:" + eCoinLeft[6]);
-
+        playerTurn = false;
+        deleteCoinNum = false;
         if (attack)
             for (int i = 0; i < 6; i++){
                 damage = (i + 1) * pCoinLeft[i];

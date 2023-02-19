@@ -13,7 +13,7 @@ public class EnemyMakeCoin : MonoBehaviour
     public int[] ECoin => eCoin;
     int[] eCoin = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
-    bool playerTurn, attack;
+    bool playerTurn, attack, deleteCoinNum;
 
     // Start is called before the first frame update
     void Start(){
@@ -24,14 +24,24 @@ public class EnemyMakeCoin : MonoBehaviour
     void Update(){
         attack = GameObject.Find("delete_Coin").GetComponent<delete_Coin>().Attack;
         playerTurn = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
+        deleteCoinNum = GameObject.Find("startButton").GetComponent<Calculate>().DeleteCoinNum;
         enemyDiceNumVall = GameObject.Find("dice").GetComponent<DiceRot>().EnemyDiceNumVall;
         diceNum = enemyDiceNumVall + 1;
 
-        if(!playerTurn)
+        if (deleteCoinNum){
+            for (int i = 0; i < 7; i++)
+                eCoin[i] = 0;
+        }
+
+        if (!playerTurn)
             if (Input.GetMouseButtonDown(1)){
                 for (int i = 0; i < diceNum; i++){
-                    if(attack)
-                        randomCoin = Random.Range(0, 7);
+                    if (attack){
+                        if(eCoin[6] == 1)
+                            randomCoin = Random.Range(0, 6);
+                        else
+                            randomCoin = Random.Range(0, 7);
+                    }
                     else
                         randomCoin = Random.Range(0, 6);
 

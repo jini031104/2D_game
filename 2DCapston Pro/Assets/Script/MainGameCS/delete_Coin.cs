@@ -19,9 +19,6 @@ public class delete_Coin : MonoBehaviour
 
         if (!attack && !defense)
             EnemySelectAttackOrDefense();
-        //    Debug.Log("적 주사위가 이겼다.");
-        //else if (attack || defense)
-        //    Debug.Log("내가 이겨서 선택했다.");
         DeleteCoin();
     }
 

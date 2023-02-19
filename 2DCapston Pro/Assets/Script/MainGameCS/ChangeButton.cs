@@ -22,6 +22,10 @@ public class ChangeButton : MonoBehaviour
     void Update(){
         diceChang = GameObject.Find("playerCoin").GetComponent<ClonCoinLimit>().DiceChang;
         calculateActive = GameObject.Find("playerCoin").GetComponent<ClonCoinLimit>().CalculateActive;
+        if (!playerTurn){
+            cleanEnemyDiceNum = -2;
+            playerTurn = GameObject.Find("startButton").GetComponent<Calculate>().PlayerTurn;
+        }
     }
 
     void OnMouseDown(){
@@ -32,11 +36,11 @@ public class ChangeButton : MonoBehaviour
                     playerTurn = false;
                     Debug.Log("Enemy!");
                 }
-                else{
-                    cleanEnemyDiceNum = -2;
-                    playerTurn = true;
-                    Debug.Log("Player!");
-                }
+                //else{
+                //    cleanEnemyDiceNum = -2;
+                //    playerTurn = true;
+                //    Debug.Log("Player!");
+                //}
         }
         else
             Debug.Log("코인이 모자르다.");

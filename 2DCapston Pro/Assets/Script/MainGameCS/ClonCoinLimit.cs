@@ -44,7 +44,7 @@ public class ClonCoinLimit : MonoBehaviour
         else if(enemyClonCoinTag.Length == eDiceNum){
             enemyCoinMakeClear = false;
             diceChang = true;
-            calculateActive = true;
+            //calculateActive = true;
         }
         else{
             diceChang = false;
