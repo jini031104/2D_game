@@ -24,7 +24,11 @@ public class Calculate : MonoBehaviour
     public bool DeleteOK => deleteOK;
     public bool PlayerTurn => playerTurn;
     public bool DeleteCoinNum => deleteCoinNum;
-    bool attack, deleteOK, playerTurn, deleteCoinNum;
+    bool deleteOK, playerTurn, deleteCoinNum;
+
+    public bool Attack => attack;
+    public bool Defense => defense;
+    bool attack, defense;
 
     // Start is called before the first frame update
     void Start(){
@@ -61,10 +65,12 @@ public class Calculate : MonoBehaviour
          */
         if (deleteOK){
             for (int i = 0; i < 7; i++){
+                count[i] = 0;
                 if (pCoinCopy[i] > eCoinCopy[i]){   // 플레이어 코인이 더 많다.
                     if (count[i] < eCoinCopy[i]){
                         Destroy(GameObject.Find(deleteCoinName[i]));
                         Destroy(GameObject.Find(deleteEnemyCoinName[i]));
+                        Debug.Log(deleteCoinName[i] + "    " + deleteEnemyCoinName[i] + "    삭제!");
                         count[i]++;
                     }
                 }
@@ -72,6 +78,7 @@ public class Calculate : MonoBehaviour
                     if (count[i] < pCoinCopy[i]){
                         Destroy(GameObject.Find(deleteCoinName[i]));
                         Destroy(GameObject.Find(deleteEnemyCoinName[i]));
+                        Debug.Log(deleteCoinName[i] + "    " + deleteEnemyCoinName[i] + "    삭제!");
                         count[i]++;
                     }
                 }
@@ -79,6 +86,7 @@ public class Calculate : MonoBehaviour
                     if (count[i] < pCoinCopy[i]){
                         Destroy(GameObject.Find(deleteCoinName[i]));
                         Destroy(GameObject.Find(deleteEnemyCoinName[i]));
+                        Debug.Log(deleteCoinName[i] + "    " + deleteEnemyCoinName[i] + "    삭제!");
                         count[i]++;
                     }
                 }
@@ -89,8 +97,8 @@ public class Calculate : MonoBehaviour
     }
 
     void OnMouseDown(){
-        Debug.Log("플레이어 코인1:" + pCoin[0] + "  코인2:" + pCoin[1] + "  코인3:" + pCoin[2] + "  코인4:" + pCoin[3] + "  코인5:" + pCoin[4] + "  코인6:" + pCoin[5] + "  코인-:" + pCoin[6]);
-        Debug.Log("적 코인1:" + eCoin[0] + "  코인2:" + eCoin[1] + "  코인3:" + eCoin[2] + "  코인4:" + eCoin[3] + "  코인5:" + eCoin[4] + "  코인6:" + eCoin[5] + "  코인-:" + eCoin[6]);
+        Debug.Log("플레이어 코인1:" + pCoin[0] + "    코인2:" + pCoin[1] + "    코인3:" + pCoin[2] + "    코인4:" + pCoin[3] + "    코인5:" + pCoin[4] + "    코인6:" + pCoin[5] + "    코인-:" + pCoin[6]);
+        Debug.Log("적       코인1:" + eCoin[0] + "    코인2:" + eCoin[1] + "    코인3:" + eCoin[2] + "    코인4:" + eCoin[3] + "    코인5:" + eCoin[4] + "    코인6:" + eCoin[5] + "    코인-:" + eCoin[6]);
         for (int i = 0; i < 7; i++){
             pCoinCopy[i] = pCoin[i];
             eCoinCopy[i] = eCoin[i];
@@ -103,10 +111,15 @@ public class Calculate : MonoBehaviour
                 coinLeft = eCoin[i] - pCoin[i];
                 eCoinLeft[i] = coinLeft;
             }
-            else if (pCoin[i] == eCoin[i] && 0< pCoin[i] && 0 < eCoin[i]){
+            else if (pCoin[i] == eCoin[i]){
                 pCoinLeft[i] = 0;
                 eCoinLeft[i] = 0;
             }
+
+            if(pCoin[i] == 0)
+                pCoinLeft[i] = 0;
+            if (eCoin[i] == 0)
+                eCoinLeft[i] = 0;
         }
         deleteOK = true;
         playerTurn = true;
@@ -116,6 +129,9 @@ public class Calculate : MonoBehaviour
     void OnMouseUp(){
         playerTurn = false;
         deleteCoinNum = false;
+        Debug.Log("남아 있는 플레이어 코인1:" + pCoinLeft[0] + "    코인2:" + pCoinLeft[1] + "    코인3:" + pCoinLeft[2] + "    코인4:" + pCoinLeft[3] + "    코인5:" + pCoinLeft[4] + "    코인6:" + pCoinLeft[5] + "    코인-:" + pCoinLeft[6]);
+        Debug.Log("남아 있는 적       코인1:" + eCoinLeft[0] + "    코인2:" + eCoinLeft[1] + "    코인3:" + eCoinLeft[2] + "    코인4:" + eCoinLeft[3] + "    코인5:" + eCoinLeft[4] + "    코인6:" + eCoinLeft[5] + "    코인-:" + eCoinLeft[6]);
+
         if (attack)
             for (int i = 0; i < 6; i++){
                 damage = (i + 1) * pCoinLeft[i];
@@ -127,10 +143,8 @@ public class Calculate : MonoBehaviour
                 playerHP -= damage;
             }
 
-        Debug.Log("playerHP: " + playerHP);
+        Debug.Log("playerHP: " + playerHP + "             enemyHP: " + enemyHP);
         GameObject.Find("playerHP").GetComponent<Slider>().value = playerHP;
-
-        Debug.Log("enemyHP: " + enemyHP);
         GameObject.Find("enemyHP").GetComponent<Slider>().value = enemyHP;
     }
 }

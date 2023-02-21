@@ -23,9 +23,10 @@ public class delete_Coin : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update(){
+        attack = GameObject.Find("startButton").GetComponent<Calculate>().Attack;
+        defense = GameObject.Find("startButton").GetComponent<Calculate>().Defense;
+        DeleteCoin();
     }
 
     void EnemySelectAttackOrDefense(){
