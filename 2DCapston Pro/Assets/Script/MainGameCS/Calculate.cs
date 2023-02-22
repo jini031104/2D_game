@@ -53,6 +53,43 @@ public class Calculate : MonoBehaviour
 
         eCoin = GameObject.Find("enemyCoin").GetComponent<EnemyMakeCoin>().ECoin;
 
+        CoinDelete();
+    }
+
+    void OnMouseDown(){
+        //Debug.Log("플레이어 코인1:" + pCoin[0] + "    코인2:" + pCoin[1] + "    코인3:" + pCoin[2] + "    코인4:" + pCoin[3] + "    코인5:" + pCoin[4] + "    코인6:" + pCoin[5] + "    코인-:" + pCoin[6]);
+        //Debug.Log("적       코인1:" + eCoin[0] + "    코인2:" + eCoin[1] + "    코인3:" + eCoin[2] + "    코인4:" + eCoin[3] + "    코인5:" + eCoin[4] + "    코인6:" + eCoin[5] + "    코인-:" + eCoin[6]);
+        CoinCheck();
+        HpResult();
+
+        deleteOK = true;
+        playerTurn = true;
+        deleteCoinNum = true;
+    }
+
+    void OnMouseUp(){
+        playerTurn = false;
+        deleteCoinNum = false;
+        //Debug.Log("남아 있는 플레이어 코인1:" + pCoinLeft[0] + "    코인2:" + pCoinLeft[1] + "    코인3:" + pCoinLeft[2] + "    코인4:" + pCoinLeft[3] + "    코인5:" + pCoinLeft[4] + "    코인6:" + pCoinLeft[5] + "    코인-:" + pCoinLeft[6]);
+        //Debug.Log("남아 있는 적       코인1:" + eCoinLeft[0] + "    코인2:" + eCoinLeft[1] + "    코인3:" + eCoinLeft[2] + "    코인4:" + eCoinLeft[3] + "    코인5:" + eCoinLeft[4] + "    코인6:" + eCoinLeft[5] + "    코인-:" + eCoinLeft[6]);
+
+        Debug.Log("playerHP: " + playerHP + "             enemyHP: " + enemyHP);
+        GameObject.Find("playerHP").GetComponent<Slider>().value = playerHP;
+        GameObject.Find("enemyHP").GetComponent<Slider>().value = enemyHP;
+    }
+
+    void AttackOrDefenseChange(){
+        if (attack){
+            attack = false;
+            defense = true;
+        }
+        else{
+            attack = true;
+            defense = false;
+        }
+    }
+
+    void CoinDelete(){
         /*
          * 플레이어 코인이 더 많다.
          * - 적의 코인 수 만큼 플레이어&적 코인을 제거한다.
@@ -93,12 +130,12 @@ public class Calculate : MonoBehaviour
                 if (i == 6)
                     deleteOK = false;
             }
+
+            AttackOrDefenseChange();
         }
     }
 
-    void OnMouseDown(){
-        Debug.Log("플레이어 코인1:" + pCoin[0] + "    코인2:" + pCoin[1] + "    코인3:" + pCoin[2] + "    코인4:" + pCoin[3] + "    코인5:" + pCoin[4] + "    코인6:" + pCoin[5] + "    코인-:" + pCoin[6]);
-        Debug.Log("적       코인1:" + eCoin[0] + "    코인2:" + eCoin[1] + "    코인3:" + eCoin[2] + "    코인4:" + eCoin[3] + "    코인5:" + eCoin[4] + "    코인6:" + eCoin[5] + "    코인-:" + eCoin[6]);
+    void CoinCheck(){
         for (int i = 0; i < 7; i++){
             pCoinCopy[i] = pCoin[i];
             eCoinCopy[i] = eCoin[i];
@@ -106,45 +143,35 @@ public class Calculate : MonoBehaviour
             if (pCoin[i] > eCoin[i]){   // 플레이어 코인이 더 많다.
                 coinLeft = pCoin[i] - eCoin[i];
                 pCoinLeft[i] = coinLeft;
+                eCoinLeft[i] = 0;
             }
             else if (pCoin[i] < eCoin[i]){  // 적 코인이 더 많다.
                 coinLeft = eCoin[i] - pCoin[i];
                 eCoinLeft[i] = coinLeft;
+                pCoinLeft[i] = 0;
             }
             else if (pCoin[i] == eCoin[i]){
                 pCoinLeft[i] = 0;
                 eCoinLeft[i] = 0;
             }
 
-            if(pCoin[i] == 0)
+            if (pCoin[i] == 0)
                 pCoinLeft[i] = 0;
             if (eCoin[i] == 0)
                 eCoinLeft[i] = 0;
         }
-        deleteOK = true;
-        playerTurn = true;
-        deleteCoinNum = true;
     }
 
-    void OnMouseUp(){
-        playerTurn = false;
-        deleteCoinNum = false;
-        Debug.Log("남아 있는 플레이어 코인1:" + pCoinLeft[0] + "    코인2:" + pCoinLeft[1] + "    코인3:" + pCoinLeft[2] + "    코인4:" + pCoinLeft[3] + "    코인5:" + pCoinLeft[4] + "    코인6:" + pCoinLeft[5] + "    코인-:" + pCoinLeft[6]);
-        Debug.Log("남아 있는 적       코인1:" + eCoinLeft[0] + "    코인2:" + eCoinLeft[1] + "    코인3:" + eCoinLeft[2] + "    코인4:" + eCoinLeft[3] + "    코인5:" + eCoinLeft[4] + "    코인6:" + eCoinLeft[5] + "    코인-:" + eCoinLeft[6]);
-
+    void HpResult(){
         if (attack)
             for (int i = 0; i < 6; i++){
                 damage = (i + 1) * pCoinLeft[i];
                 enemyHP -= damage;
             }
         else
-            for(int i=0; i<6; i++){
+            for (int i = 0; i < 6; i++){
                 damage = (i + 1) * eCoinLeft[i];
                 playerHP -= damage;
             }
-
-        Debug.Log("playerHP: " + playerHP + "             enemyHP: " + enemyHP);
-        GameObject.Find("playerHP").GetComponent<Slider>().value = playerHP;
-        GameObject.Find("enemyHP").GetComponent<Slider>().value = enemyHP;
     }
 }
