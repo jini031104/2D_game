@@ -28,15 +28,19 @@ public class DiceRot : MonoBehaviour
     bool diceChang, reOK;
     bool diceRePlay = true;
 
-    //bool startDice;
+    int attackResult;
 
     // Start is called before the first frame update
     void Start(){
         diceScale = this.gameObject.transform.localScale;
         dVall = diceVall.GetLength(0);
         rVall = rotationVal.GetLength(0);
+        attackResult = GameObject.Find("changeButton").GetComponent<ChangeButton>().AttackResult;
 
-        Debug.Log("Player!");
+        if (attackResult == 0)
+            Debug.Log("Player!");
+        else if (attackResult == 1)
+            Debug.Log("Enemy!");
 
         coinMakeOk = false;
         enemyCoinMakeOk = false;

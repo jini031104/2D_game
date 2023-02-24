@@ -30,6 +30,8 @@ public class Calculate : MonoBehaviour
     public bool Defense => defense;
     bool attack, defense;
 
+    int attackResult;
+
     // Start is called before the first frame update
     void Start(){
         coinLeft = 0;
@@ -38,6 +40,7 @@ public class Calculate : MonoBehaviour
         damage = 0;
         deleteOK = false;
         deleteCoinNum = false;
+        attackResult = GameObject.Find("changeButton").GetComponent<ChangeButton>().AttackResult;
     }
 
     // Update is called once per frame
@@ -63,12 +66,19 @@ public class Calculate : MonoBehaviour
         HpResult();
 
         deleteOK = true;
-        playerTurn = true;
         deleteCoinNum = true;
+
+        if (attackResult == 0)
+            playerTurn = true;
+        else if (attackResult == 1)
+            playerTurn = false;
     }
 
     void OnMouseUp(){
-        playerTurn = false;
+        if (attackResult == 0)
+            playerTurn = false;
+        else if (attackResult == 1)
+            playerTurn = true;
         deleteCoinNum = false;
         //Debug.Log("남아 있는 플레이어 코인1:" + pCoinLeft[0] + "    코인2:" + pCoinLeft[1] + "    코인3:" + pCoinLeft[2] + "    코인4:" + pCoinLeft[3] + "    코인5:" + pCoinLeft[4] + "    코인6:" + pCoinLeft[5] + "    코인-:" + pCoinLeft[6]);
         //Debug.Log("남아 있는 적       코인1:" + eCoinLeft[0] + "    코인2:" + eCoinLeft[1] + "    코인3:" + eCoinLeft[2] + "    코인4:" + eCoinLeft[3] + "    코인5:" + eCoinLeft[4] + "    코인6:" + eCoinLeft[5] + "    코인-:" + eCoinLeft[6]);
