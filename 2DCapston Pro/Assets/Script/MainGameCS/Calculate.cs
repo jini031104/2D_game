@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Calculate : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class Calculate : MonoBehaviour
 
     int[] pCoinLeft = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
     int[] eCoinLeft = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
+
+    [SerializeField]
+    TextMeshProUGUI playerHpText;
+    [SerializeField]
+    TextMeshProUGUI enemyHpText;
 
     int coinLeft, playerHP, enemyHP, damage;
 
@@ -28,7 +34,7 @@ public class Calculate : MonoBehaviour
 
     public bool Attack => attack;
     public bool Defense => defense;
-    bool attack, defense;
+    bool attack, defense, AttackOrDefenseChangeOk;
 
     int attackResult;
 
@@ -41,6 +47,11 @@ public class Calculate : MonoBehaviour
         deleteOK = false;
         deleteCoinNum = false;
         attackResult = GameObject.Find("changeButton").GetComponent<ChangeButton>().AttackResult;
+        if (attackResult == 0)
+            playerTurn = false;
+        else if (attackResult == 1)
+            playerTurn = true;
+        AttackOrDefenseChangeOk = false;
     }
 
     // Update is called once per frame
@@ -56,22 +67,31 @@ public class Calculate : MonoBehaviour
 
         eCoin = GameObject.Find("enemyCoin").GetComponent<EnemyMakeCoin>().ECoin;
 
+        playerHpText.text = " " + playerHP;
+        enemyHpText.text = " " + enemyHP;
+
         CoinDelete();
+        if (AttackOrDefenseChangeOk){
+            AttackOrDefenseChange();
+            AttackOrDefenseChangeOk = false;
+        }
     }
 
     void OnMouseDown(){
-        //Debug.Log("플레이어 코인1:" + pCoin[0] + "    코인2:" + pCoin[1] + "    코인3:" + pCoin[2] + "    코인4:" + pCoin[3] + "    코인5:" + pCoin[4] + "    코인6:" + pCoin[5] + "    코인-:" + pCoin[6]);
-        //Debug.Log("적       코인1:" + eCoin[0] + "    코인2:" + eCoin[1] + "    코인3:" + eCoin[2] + "    코인4:" + eCoin[3] + "    코인5:" + eCoin[4] + "    코인6:" + eCoin[5] + "    코인-:" + eCoin[6]);
         CoinCheck();
         HpResult();
 
         deleteOK = true;
         deleteCoinNum = true;
+        AttackOrDefenseChangeOk = true;
 
         if (attackResult == 0)
             playerTurn = true;
         else if (attackResult == 1)
             playerTurn = false;
+
+        for (int i = 0; i < 7; i++)
+            count[i] = 0;
     }
 
     void OnMouseUp(){
@@ -80,12 +100,12 @@ public class Calculate : MonoBehaviour
         else if (attackResult == 1)
             playerTurn = true;
         deleteCoinNum = false;
-        //Debug.Log("남아 있는 플레이어 코인1:" + pCoinLeft[0] + "    코인2:" + pCoinLeft[1] + "    코인3:" + pCoinLeft[2] + "    코인4:" + pCoinLeft[3] + "    코인5:" + pCoinLeft[4] + "    코인6:" + pCoinLeft[5] + "    코인-:" + pCoinLeft[6]);
-        //Debug.Log("남아 있는 적       코인1:" + eCoinLeft[0] + "    코인2:" + eCoinLeft[1] + "    코인3:" + eCoinLeft[2] + "    코인4:" + eCoinLeft[3] + "    코인5:" + eCoinLeft[4] + "    코인6:" + eCoinLeft[5] + "    코인-:" + eCoinLeft[6]);
 
         Debug.Log("playerHP: " + playerHP + "             enemyHP: " + enemyHP);
         GameObject.Find("playerHP").GetComponent<Slider>().value = playerHP;
         GameObject.Find("enemyHP").GetComponent<Slider>().value = enemyHP;
+
+        deleteOK = false;
     }
 
     void AttackOrDefenseChange(){
@@ -112,7 +132,6 @@ public class Calculate : MonoBehaviour
          */
         if (deleteOK){
             for (int i = 0; i < 7; i++){
-                count[i] = 0;
                 if (pCoinCopy[i] > eCoinCopy[i]){   // 플레이어 코인이 더 많다.
                     if (count[i] < eCoinCopy[i]){
                         Destroy(GameObject.Find(deleteCoinName[i]));
@@ -137,11 +156,7 @@ public class Calculate : MonoBehaviour
                         count[i]++;
                     }
                 }
-                if (i == 6)
-                    deleteOK = false;
             }
-
-            AttackOrDefenseChange();
         }
     }
 

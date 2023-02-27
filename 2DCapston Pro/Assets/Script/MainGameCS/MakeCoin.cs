@@ -35,7 +35,7 @@ public class MakeCoin : MonoBehaviour
     }
 
     void OnMouseDown() {
-        if (coinMakeClear){
+        if (coinMakeOk && coinMakeClear){
             Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
             switch (coinPrefab.name){
                 case "clonCoin1":

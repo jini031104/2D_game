@@ -21,8 +21,8 @@ public class FlagMove : MonoBehaviour
         playerTurn = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
 
         if (playerTurn){
-            flag[0].SetActive(true);
-            flag[1].SetActive(false);
+            flag[0].SetActive(true);    // playerFlag
+            flag[1].SetActive(false);   // enemyFlag
         }
         else{
             flag[0].SetActive(false);

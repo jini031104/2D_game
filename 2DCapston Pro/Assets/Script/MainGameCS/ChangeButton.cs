@@ -18,7 +18,7 @@ public class ChangeButton : MonoBehaviour
 
     // Start is called before the first frame update
     void Start(){
-        attackResult = 1;
+        attackResult = 1; // Random.Range(0, 2);
         if (attackResult == 0)
             playerTurn = true;
         else if (attackResult == 1)
@@ -29,16 +29,18 @@ public class ChangeButton : MonoBehaviour
     void Update(){
         diceChang = GameObject.Find("playerCoin").GetComponent<ClonCoinLimit>().DiceChang;
         calculateActive = GameObject.Find("playerCoin").GetComponent<ClonCoinLimit>().CalculateActive;
+
         if (attackResult == 0)
             if (!playerTurn){
                 cleanEnemyDiceNum = -2;
                 playerTurn = GameObject.Find("startButton").GetComponent<Calculate>().PlayerTurn;
             }
-        else if(attackResult == 1)
-            if(playerTurn){
+        if(attackResult == 1){
+            if (playerTurn){
                 cleanPlayerDiceNum = -2;
                 playerTurn = GameObject.Find("startButton").GetComponent<Calculate>().PlayerTurn;
             }
+        }
     }
 
     void OnMouseDown(){

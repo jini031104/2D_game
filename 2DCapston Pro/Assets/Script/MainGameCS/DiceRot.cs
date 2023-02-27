@@ -27,8 +27,12 @@ public class DiceRot : MonoBehaviour
     bool playerTurn, diceStart;
     bool diceChang, reOK;
     bool diceRePlay = true;
+    bool coinDeletes;
 
-    int attackResult;
+    int attackResult, coinDelete;
+
+    string[] deleteCoinName = new string[] { "clonCoin1(Clone)", "clonCoin2(Clone)", "clonCoin3(Clone)", "clonCoin4(Clone)", "clonCoin5(Clone)", "clonCoin6(Clone)", "clonCoin-(Clone)" };
+    string[] deleteEnemyCoinName = new string[] { "eClon1(Clone)", "eClon2(Clone)", "eClon3(Clone)", "eClon4(Clone)", "eClon5(Clone)", "eClon6(Clone)", "eClon-(Clone)" };
 
     // Start is called before the first frame update
     void Start(){
@@ -42,9 +46,11 @@ public class DiceRot : MonoBehaviour
         else if (attackResult == 1)
             Debug.Log("Enemy!");
 
+        coinDeletes = false;
         coinMakeOk = false;
         enemyCoinMakeOk = false;
         diceStart = true;
+        coinDelete = 0;
     }
 
     // Update is called once per frame
@@ -72,9 +78,23 @@ public class DiceRot : MonoBehaviour
             }
         }
         SmallDice();
+
+        if(coinDeletes){
+            for(int i=0; i<7; i++){
+                Debug.Log(i);
+                Destroy(GameObject.Find(deleteCoinName[i]));
+                Destroy(GameObject.Find(deleteEnemyCoinName[i]));
+            }
+        }
     }
+
     void OnMouseDown(){
         if (diceStart){
+            coinDelete++;
+            if (coinDelete % 2 == 1 && 1 < coinDelete){
+                coinDeletes = true;
+            }
+
             transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             coinMakeOk = true;
             if (!playerTurn){
@@ -88,6 +108,7 @@ public class DiceRot : MonoBehaviour
         if (diceStart){
             DiceDrpoAndValSet();
             diceStart = false;
+            coinDeletes = false;
         }
     }
 
