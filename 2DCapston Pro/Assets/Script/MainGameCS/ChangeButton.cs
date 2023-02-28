@@ -18,7 +18,7 @@ public class ChangeButton : MonoBehaviour
 
     // Start is called before the first frame update
     void Start(){
-        attackResult = 1; // Random.Range(0, 2);
+        attackResult = Random.Range(0, 2);
         if (attackResult == 0)
             playerTurn = true;
         else if (attackResult == 1)

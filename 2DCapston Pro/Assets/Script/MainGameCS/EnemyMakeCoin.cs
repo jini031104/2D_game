@@ -18,6 +18,7 @@ public class EnemyMakeCoin : MonoBehaviour
     // Start is called before the first frame update
     void Start(){
         makeNum = 0;
+        CoinRotation();
     }
 
     // Update is called once per frame
@@ -73,5 +74,10 @@ public class EnemyMakeCoin : MonoBehaviour
                     makeNum++;
                 }
             }
+    }
+
+    void CoinRotation(){
+        for(int i=0; i<7; i++)
+            enemyCoin[i].transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = 2;
     }
 }

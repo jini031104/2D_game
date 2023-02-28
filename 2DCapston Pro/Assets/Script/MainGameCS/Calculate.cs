@@ -36,6 +36,9 @@ public class Calculate : MonoBehaviour
     public bool Defense => defense;
     bool attack, defense, AttackOrDefenseChangeOk;
 
+    public bool CoinRotation => coinRotation;
+    bool coinRotation;
+
     int attackResult;
 
     // Start is called before the first frame update
@@ -70,7 +73,8 @@ public class Calculate : MonoBehaviour
         playerHpText.text = " " + playerHP;
         enemyHpText.text = " " + enemyHP;
 
-        CoinDelete();
+        //Invoke("CoinDelete", 20);
+        //CoinDelete();
         if (AttackOrDefenseChangeOk){
             AttackOrDefenseChange();
             AttackOrDefenseChangeOk = false;
@@ -84,6 +88,7 @@ public class Calculate : MonoBehaviour
         deleteOK = true;
         deleteCoinNum = true;
         AttackOrDefenseChangeOk = true;
+        coinRotation = true;
 
         if (attackResult == 0)
             playerTurn = true;
@@ -99,7 +104,9 @@ public class Calculate : MonoBehaviour
             playerTurn = false;
         else if (attackResult == 1)
             playerTurn = true;
+
         deleteCoinNum = false;
+        coinRotation = false;
 
         Debug.Log("playerHP: " + playerHP + "             enemyHP: " + enemyHP);
         GameObject.Find("playerHP").GetComponent<Slider>().value = playerHP;

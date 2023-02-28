@@ -81,7 +81,6 @@ public class DiceRot : MonoBehaviour
 
         if(coinDeletes){
             for(int i=0; i<7; i++){
-                Debug.Log(i);
                 Destroy(GameObject.Find(deleteCoinName[i]));
                 Destroy(GameObject.Find(deleteEnemyCoinName[i]));
             }

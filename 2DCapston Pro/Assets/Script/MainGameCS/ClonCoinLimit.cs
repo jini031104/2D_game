@@ -17,7 +17,10 @@ public class ClonCoinLimit : MonoBehaviour
     bool diceChang;
 
     public bool CalculateActive => calculateActive;
-    bool calculateActive;
+    bool calculateActive, coinSpawnCheck;
+
+    public int CoinSpawn => coinSpawn;
+    int coinSpawn;
 
     // Start is called before the first frame update
     void Start(){
@@ -36,6 +39,8 @@ public class ClonCoinLimit : MonoBehaviour
 
         pDiceNum = playerDiceNumVall + 1;
         eDiceNum = enemyDiceNumVall + 1;
+
+        coinSpawn = clonCoinTag.Length;
 
         if (clonCoinTag.Length == pDiceNum){    // 주사위 값과 생성된 코인 수가 동일할 때 바뀐다.
             coinMakeClear = false;

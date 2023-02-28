@@ -16,15 +16,15 @@ public class MakeCoin : MonoBehaviour
 
     bool coinMakeClear, deleteCoinNum;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    int coinSpawn;
 
+    // Start is called before the first frame update
+    void Start(){
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
+        coinSpawn = GameObject.Find("playerCoin").GetComponent<ClonCoinLimit>().CoinSpawn;
         coinMakeOk = GameObject.Find("dice").GetComponent<DiceRot>().CoinMakeOk;    // 주사위를 던지면 코인을 만들 수 있다.
         coinMakeClear = GameObject.Find("playerCoin").GetComponent<ClonCoinLimit>().CoinMakeClear;
         deleteCoinNum = GameObject.Find("startButton").GetComponent<Calculate>().DeleteCoinNum;
@@ -36,7 +36,7 @@ public class MakeCoin : MonoBehaviour
 
     void OnMouseDown() {
         if (coinMakeOk && coinMakeClear){
-            Instantiate(coinPrefab, spawnPoint.position, Quaternion.identity);
+            Instantiate(coinPrefab, new Vector3(-3 + coinSpawn, -2, 0), Quaternion.identity);
             switch (coinPrefab.name){
                 case "clonCoin1":
                     pCoin[0]++;
@@ -61,5 +61,6 @@ public class MakeCoin : MonoBehaviour
                     break;
             }
         }
+        coinSpawn++;
     }
 }

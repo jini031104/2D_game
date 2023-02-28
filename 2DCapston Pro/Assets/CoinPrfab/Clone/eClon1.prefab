@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2026347687490573956}
   - component: {fileID: 5726615302834784273}
   - component: {fileID: 4508301111880269542}
+  - component: {fileID: 6540301255783614475}
   m_Layer: 0
   m_Name: eClon1
   m_TagString: eClonCoin
@@ -162,6 +163,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6540301255783614475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420157560730414714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720a613e794544a4fba648435eb3e662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2140270785246484584
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +327,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0, g: 0.37489465, b: 0.7058824, a: 1}
   m_FlipX: 0
