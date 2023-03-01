@@ -21,6 +21,8 @@ public class Calculate : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI enemyHpText;
 
+    public int PlayerHP => playerHP;
+    public int EnemyHP => enemyHP;
     int coinLeft, playerHP, enemyHP, damage;
 
     string[] coinName = new string[] { "coin1", "coin2", "coin3", "coin4", "coin5", "coin6", "coin-" };
@@ -41,6 +43,7 @@ public class Calculate : MonoBehaviour
 
     int attackResult;
 
+    bool cardClick, playerTurnCheck;
     // Start is called before the first frame update
     void Start(){
         coinLeft = 0;
@@ -70,8 +73,19 @@ public class Calculate : MonoBehaviour
 
         eCoin = GameObject.Find("enemyCoin").GetComponent<EnemyMakeCoin>().ECoin;
 
+        cardClick = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().CardClick;
+        playerTurnCheck = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
+        if (cardClick){
+            if (playerTurnCheck)
+                playerHP = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().PlayerHP;
+            else
+                enemyHP = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().EnemyHP;
+        }
+
         playerHpText.text = " " + playerHP;
         enemyHpText.text = " " + enemyHP;
+        GameObject.Find("playerHP").GetComponent<Slider>().value = playerHP;
+        GameObject.Find("enemyHP").GetComponent<Slider>().value = enemyHP;
 
         //Invoke("CoinDelete", 20);
         //CoinDelete();
@@ -109,8 +123,6 @@ public class Calculate : MonoBehaviour
         coinRotation = false;
 
         Debug.Log("playerHP: " + playerHP + "             enemyHP: " + enemyHP);
-        GameObject.Find("playerHP").GetComponent<Slider>().value = playerHP;
-        GameObject.Find("enemyHP").GetComponent<Slider>().value = enemyHP;
 
         deleteOK = false;
     }

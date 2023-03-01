@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiceRot : MonoBehaviour
-{
+public class DiceRot : MonoBehaviour{
     Vector3 diceScale;
 
     int[] diceVall = new int[] { 1, 2, 3, 4, 5, 6 };
@@ -53,21 +52,37 @@ public class DiceRot : MonoBehaviour
         coinDelete = 0;
     }
 
+    bool click;
+    int a = 0;
     // Update is called once per frame
     void Update(){
         playerTurn = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
+        click = GameObject.Find("dicePlusOneCard").GetComponent<DicePiusOne>().Click;
         if (playerTurn){
             cleanEnemyDiceNum = GameObject.Find("changeButton").GetComponent<ChangeButton>().CleanEnemyDiceNum;
+            if (click){
+                playerDiceNumVall = GameObject.Find("dicePlusOneCard").GetComponent<DicePiusOne>().PlayerDiceNumVall;
+                DiceResult(playerDiceNumVall);
+                click = false;
+            }
+            
             if (cleanEnemyDiceNum < 0){
                 enemyDiceNumVall = cleanEnemyDiceNum;
                 if (!diceRePlay){
                     diceRePlay = true;
                     diceStart = true;
+                    a = 0;
                 }
             }
         }
         else{
             cleanPlayerDiceNum = GameObject.Find("changeButton").GetComponent<ChangeButton>().CleanPlayerDiceNum;
+            if (click){
+                enemyDiceNumVall = GameObject.Find("dicePlusOneCard").GetComponent<DicePiusOne>().EnemyDiceNumVall;
+                DiceResult(enemyDiceNumVall);
+                click = false;
+            }
+                
             if (cleanPlayerDiceNum < 0){
                 playerDiceNumVall = cleanPlayerDiceNum;
                 if (!diceStart){
@@ -77,6 +92,7 @@ public class DiceRot : MonoBehaviour
                 }
             }
         }
+
         SmallDice();
 
         if(coinDeletes){
@@ -88,6 +104,17 @@ public class DiceRot : MonoBehaviour
     }
 
     void OnMouseDown(){
+        if (!diceStart){
+            Debug.Log("더이상 주사위를 굴릴 수 없습니다.");
+            if (a == 0){
+                diceStart = GameObject.Find("diceRePlayCard").GetComponent<RePlayDice>().StartDice;
+                if (diceStart){
+                    Debug.Log("다시 주사위를 굴렸습니다.");
+                    a++;
+                }
+            }
+        }
+
         if (diceStart){
             coinDelete++;
             if (coinDelete % 2 == 1 && 1 < coinDelete){
