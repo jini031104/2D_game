@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Calculate : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class Calculate : MonoBehaviour
     TextMeshProUGUI playerHpText;
     [SerializeField]
     TextMeshProUGUI enemyHpText;
+    [SerializeField]
+    TextMeshProUGUI turnCountText;
 
     public int PlayerHP => playerHP;
     public int EnemyHP => enemyHP;
@@ -41,11 +44,18 @@ public class Calculate : MonoBehaviour
     public bool CoinRotation => coinRotation;
     bool coinRotation;
 
-    int attackResult;
+    public static int turnCount;
+    int attackResult, clickCount;
 
+    public static bool playerWin, enemyWin;
     bool cardClick, playerTurnCheck;
+
     // Start is called before the first frame update
     void Start(){
+        playerWin = false;
+        enemyWin = false;
+        clickCount = 0;
+        turnCount = 0;
         coinLeft = 0;
         playerHP = (int)GameObject.Find("playerHP").GetComponent<Slider>().value;
         enemyHP = (int)GameObject.Find("enemyHP").GetComponent<Slider>().value;
@@ -84,20 +94,35 @@ public class Calculate : MonoBehaviour
 
         playerHpText.text = " " + playerHP;
         enemyHpText.text = " " + enemyHP;
+        turnCountText.text = "Turn: " + turnCount;
         GameObject.Find("playerHP").GetComponent<Slider>().value = playerHP;
         GameObject.Find("enemyHP").GetComponent<Slider>().value = enemyHP;
 
-        //Invoke("CoinDelete", 20);
-        //CoinDelete();
         if (AttackOrDefenseChangeOk){
             AttackOrDefenseChange();
             AttackOrDefenseChangeOk = false;
+        }
+
+        if (playerHP <= 0){     // 적이 이김
+            playerHP = 0;
+            enemyWin = true;
+            if (Input.GetMouseButtonDown(1))
+                SceneManager.LoadScene("GameOver");
+        }
+        else if(enemyHP <= 0){  // 플레이어가 이김
+            enemyHP = 0;
+            playerWin = true;
+            if (Input.GetMouseButtonDown(1))
+                SceneManager.LoadScene("GameOver");
         }
     }
 
     void OnMouseDown(){
         CoinCheck();
         HpResult();
+        clickCount++;
+        if (clickCount % 2 == 0)
+            turnCount++;
 
         deleteOK = true;
         deleteCoinNum = true;
@@ -138,70 +163,38 @@ public class Calculate : MonoBehaviour
         }
     }
 
-    void CoinDelete(){
-        /*
-         * 플레이어 코인이 더 많다.
-         * - 적의 코인 수 만큼 플레이어&적 코인을 제거한다.
-         * 
-         * 적 코인이 더 많다.
-         * - 플레이어의 코인 수 만큼 플레이어&적 코인을 제거한다.
-         * 
-         * 동일하다
-         * - 플레이어&적 코인을 모두 제거한다.
-         */
-        if (deleteOK){
-            for (int i = 0; i < 7; i++){
-                if (pCoinCopy[i] > eCoinCopy[i]){   // 플레이어 코인이 더 많다.
-                    if (count[i] < eCoinCopy[i]){
-                        Destroy(GameObject.Find(deleteCoinName[i]));
-                        Destroy(GameObject.Find(deleteEnemyCoinName[i]));
-                        Debug.Log(deleteCoinName[i] + "    " + deleteEnemyCoinName[i] + "    삭제!");
-                        count[i]++;
-                    }
-                }
-                else if (pCoinCopy[i] < eCoinCopy[i]){  // 적 코인이 더 많다.
-                    if (count[i] < pCoinCopy[i]){
-                        Destroy(GameObject.Find(deleteCoinName[i]));
-                        Destroy(GameObject.Find(deleteEnemyCoinName[i]));
-                        Debug.Log(deleteCoinName[i] + "    " + deleteEnemyCoinName[i] + "    삭제!");
-                        count[i]++;
-                    }
-                }
-                else if (pCoinCopy[i] == eCoinCopy[i]){ // 적 코인과 플레이어 코인이 동일하다.
-                    if (count[i] < pCoinCopy[i]){
-                        Destroy(GameObject.Find(deleteCoinName[i]));
-                        Destroy(GameObject.Find(deleteEnemyCoinName[i]));
-                        Debug.Log(deleteCoinName[i] + "    " + deleteEnemyCoinName[i] + "    삭제!");
-                        count[i]++;
-                    }
-                }
-            }
-        }
-    }
-
     void CoinCheck(){
         for (int i = 0; i < 7; i++){
-            pCoinCopy[i] = pCoin[i];
-            eCoinCopy[i] = eCoin[i];
+            if (pCoin[6] == 0)
+                pCoinCopy[i] = pCoin[i];
+            else if (pCoin[6] == 1)
+                if (pCoin[i] > 0)
+                    pCoinCopy[i] = 6;
 
-            if (pCoin[i] > eCoin[i]){   // 플레이어 코인이 더 많다.
-                coinLeft = pCoin[i] - eCoin[i];
+            if (eCoin[6] == 0)
+                eCoinCopy[i] = eCoin[i];
+            else if (eCoin[6] == 1)
+                if (eCoin[i] > 0)
+                    eCoinCopy[i] = 6;
+
+            if (pCoinCopy[i] > eCoinCopy[i]){   // 플레이어 코인이 더 많다.
+                coinLeft = pCoinCopy[i] - eCoinCopy[i];
                 pCoinLeft[i] = coinLeft;
                 eCoinLeft[i] = 0;
             }
-            else if (pCoin[i] < eCoin[i]){  // 적 코인이 더 많다.
-                coinLeft = eCoin[i] - pCoin[i];
+            else if (pCoinCopy[i] < eCoinCopy[i]){  // 적 코인이 더 많다.
+                coinLeft = eCoinCopy[i] - pCoinCopy[i];
                 eCoinLeft[i] = coinLeft;
                 pCoinLeft[i] = 0;
             }
-            else if (pCoin[i] == eCoin[i]){
+            else if (pCoinCopy[i] == eCoinCopy[i]){
                 pCoinLeft[i] = 0;
                 eCoinLeft[i] = 0;
             }
 
-            if (pCoin[i] == 0)
+            if (pCoinCopy[i] == 0)
                 pCoinLeft[i] = 0;
-            if (eCoin[i] == 0)
+            if (eCoinCopy[i] == 0)
                 eCoinLeft[i] = 0;
         }
     }

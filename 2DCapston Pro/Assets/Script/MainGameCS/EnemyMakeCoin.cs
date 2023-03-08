@@ -40,8 +40,12 @@ public class EnemyMakeCoin : MonoBehaviour
                     if (attack){
                         if(eCoin[6] == 1)
                             randomCoin = Random.Range(0, 6);
-                        else
-                            randomCoin = Random.Range(0, 7);
+                        else{
+                            if(diceNum == 1)
+                                randomCoin = Random.Range(0, 6);
+                            else
+                                randomCoin = Random.Range(0, 7);
+                        }
                     }
                     else
                         randomCoin = Random.Range(0, 6);
