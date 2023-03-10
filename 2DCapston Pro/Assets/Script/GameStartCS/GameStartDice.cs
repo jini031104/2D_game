@@ -21,8 +21,7 @@ public class GameStartDice : MonoBehaviour
                                         {40, 45, 90 },
                                         {130, 45, 0 } };
     int rVall, dVall;
-    int enemyDiceRotIndex, playerDiceeRotIndex;
-    int enemyDiceVal, playerDiceVal;
+    public static int enemyDiceVal, playerDiceVal;
 
     bool diceSmall = false;
     bool gameStartCheck = false;
@@ -65,12 +64,13 @@ public class GameStartDice : MonoBehaviour
 
         SmallDice(playerDice, playerDiceScale);
         SmallDice(enemyDice, enemyDiceScale);
+        //Debug.Log("playerDiceVal: " + playerDiceVal + " enemyDiceVal: " + enemyDiceVal);
     }
 
     public void gameStart(){
         if(gameStartCheck){
             if(Input.GetMouseButtonDown(0))
-                SceneManager.LoadScene("MainGameCS");
+                SceneManager.LoadScene("SkillSelect");
         }
     }
 
@@ -80,15 +80,13 @@ public class GameStartDice : MonoBehaviour
     }
 
     private void OnMouseUp(){   // 주사위를 굴린다.
-        DiceDrpoAndValSet(playerDiceeRotIndex, playerDice);
-        DiceDrpoAndValSet(enemyDiceRotIndex, enemyDice);
-        //Debug.Log(playerDice.name + "주사위 값: " + playerDiceVal);
-        //Debug.Log(enemyDice.name + "주사위 값: " + enemyDiceVal);
+        DiceDrpoAndValSet(playerDice);
+        DiceDrpoAndValSet(enemyDice);
         diceSmall = true;
     }
 
-    public void DiceDrpoAndValSet(int rotIndex, GameObject Dice){   // 주사위 값 세팅
-        rotIndex = Random.Range(0, rVall);
+    public void DiceDrpoAndValSet(GameObject Dice){   // 주사위 값 세팅
+        int rotIndex = Random.Range(0, rVall);
         Dice.transform.localEulerAngles = new Vector3(rotationVal[rotIndex, 0], rotationVal[rotIndex, 1], rotationVal[rotIndex, 2]);
 
         int valIndex;

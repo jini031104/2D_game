@@ -33,6 +33,9 @@ public class DiceRot : MonoBehaviour{
     string[] deleteCoinName = new string[] { "clonCoin1(Clone)", "clonCoin2(Clone)", "clonCoin3(Clone)", "clonCoin4(Clone)", "clonCoin5(Clone)", "clonCoin6(Clone)", "clonCoin-(Clone)" };
     string[] deleteEnemyCoinName = new string[] { "eClon1(Clone)", "eClon2(Clone)", "eClon3(Clone)", "eClon4(Clone)", "eClon5(Clone)", "eClon6(Clone)", "eClon-(Clone)" };
 
+    bool click;
+    int clickCount = 0;
+
     // Start is called before the first frame update
     void Start(){
         diceScale = this.gameObject.transform.localScale;
@@ -50,10 +53,9 @@ public class DiceRot : MonoBehaviour{
         enemyCoinMakeOk = false;
         diceStart = true;
         coinDelete = 0;
+        clickCount = 0;
     }
 
-    bool click;
-    int a = 0;
     // Update is called once per frame
     void Update(){
         playerTurn = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
@@ -71,7 +73,7 @@ public class DiceRot : MonoBehaviour{
                 if (!diceRePlay){
                     diceRePlay = true;
                     diceStart = true;
-                    a = 0;
+                    clickCount = 0;
                 }
             }
         }
@@ -106,11 +108,11 @@ public class DiceRot : MonoBehaviour{
     void OnMouseDown(){
         if (!diceStart){
             Debug.Log("더이상 주사위를 굴릴 수 없습니다.");
-            if (a == 0){
+            if (clickCount == 0 && GameObject.Find("diceRePlayCard")){
                 diceStart = GameObject.Find("diceRePlayCard").GetComponent<RePlayDice>().StartDice;
                 if (diceStart){
                     Debug.Log("다시 주사위를 굴렸습니다.");
-                    a++;
+                    clickCount++;
                 }
             }
         }

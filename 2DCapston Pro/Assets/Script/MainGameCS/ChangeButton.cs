@@ -15,14 +15,27 @@ public class ChangeButton : MonoBehaviour
 
     public int AttackResult => attackResult;
     int attackResult;
+    int enemyDiceVal, playerDiceVal;
 
     // Start is called before the first frame update
     void Start(){
-        attackResult = Random.Range(0, 2);
-        if (attackResult == 0)
+        enemyDiceVal = GameStartDice.enemyDiceVal;
+        playerDiceVal = GameStartDice.playerDiceVal;
+
+        if (enemyDiceVal < playerDiceVal){
             playerTurn = true;
-        else if (attackResult == 1)
+            attackResult = 0;
+        }
+        else if(enemyDiceVal > playerDiceVal){
             playerTurn = false;
+            attackResult = 1;
+        }
+
+        //attackResult = Random.Range(0, 2);
+        //if (attackResult == 0)
+        //    playerTurn = true;
+        //else if (attackResult == 1)
+        //    playerTurn = false;
     }
 
     // Update is called once per frame
@@ -30,12 +43,12 @@ public class ChangeButton : MonoBehaviour
         diceChang = GameObject.Find("playerCoin").GetComponent<ClonCoinLimit>().DiceChang;
         calculateActive = GameObject.Find("playerCoin").GetComponent<ClonCoinLimit>().CalculateActive;
 
-        if (attackResult == 0)
+        if (enemyDiceVal < playerDiceVal)   // attackResult == 0
             if (!playerTurn){
                 cleanEnemyDiceNum = -2;
                 playerTurn = GameObject.Find("startButton").GetComponent<Calculate>().PlayerTurn;
             }
-        if(attackResult == 1){
+        if(enemyDiceVal > playerDiceVal){  // attackResult == 1
             if (playerTurn){
                 cleanPlayerDiceNum = -2;
                 playerTurn = GameObject.Find("startButton").GetComponent<Calculate>().PlayerTurn;
@@ -46,14 +59,14 @@ public class ChangeButton : MonoBehaviour
     void OnMouseDown(){
         if (diceChang){ // 주사위 값과 생성된 코인 수가 동일할 때 바뀐다.
             if(!calculateActive)
-                if (attackResult == 0){
+                if (enemyDiceVal < playerDiceVal){  // attackResult == 0
                     if (playerTurn){
                         cleanPlayerDiceNum = -2;
                         playerTurn = false;
                         Debug.Log("Enemy!");
                     }
                 }
-                else if (attackResult == 1){
+                else if (enemyDiceVal > playerDiceVal){ // attackResult == 1
                     if (!playerTurn){
                         cleanEnemyDiceNum = -2;
                         playerTurn = true;

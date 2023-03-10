@@ -147,6 +147,8 @@ public class Calculate : MonoBehaviour
         deleteCoinNum = false;
         coinRotation = false;
 
+        Debug.Log("플레이어 코인1:" + pCoinCopy[0] + " 코인2:" + pCoinCopy[1] + " 코인3:" + pCoinCopy[2] + " 코인4:" + pCoinCopy[3] + " 코인5:" + pCoinCopy[4] + " 코인6:" + pCoinCopy[5] + " 코인-:" + pCoinCopy[6]);
+        Debug.Log("적 코인1:" + eCoinCopy[0] + " 코인2:" + eCoinCopy[1] + " 코인3:" + eCoinCopy[2] + " 코인4:" + eCoinCopy[3] + " 코인5:" + eCoinCopy[4] + " 코인6:" + eCoinCopy[5] + " 코인-:" + eCoinCopy[6]);
         Debug.Log("playerHP: " + playerHP + "             enemyHP: " + enemyHP);
 
         deleteOK = false;
@@ -165,6 +167,8 @@ public class Calculate : MonoBehaviour
 
     void CoinCheck(){
         for (int i = 0; i < 7; i++){
+            pCoinCopy[i] = 0;
+            eCoinCopy[i] = 0;
             if (pCoin[6] == 0)
                 pCoinCopy[i] = pCoin[i];
             else if (pCoin[6] == 1)
