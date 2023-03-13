@@ -83,14 +83,14 @@ public class Calculate : MonoBehaviour
 
         eCoin = GameObject.Find("enemyCoin").GetComponent<EnemyMakeCoin>().ECoin;
 
-        cardClick = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().CardClick;
-        playerTurnCheck = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
-        if (cardClick){
-            if (playerTurnCheck)
-                playerHP = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().PlayerHP;
-            else
-                enemyHP = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().EnemyHP;
-        }
+        //cardClick = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().CardClick;
+        //playerTurnCheck = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
+        //if (cardClick){
+        //    if (playerTurnCheck)
+        //        playerHP = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().PlayerHP;
+        //    else
+        //        enemyHP = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().EnemyHP;
+        //}
 
         playerHpText.text = " " + playerHP;
         enemyHpText.text = " " + enemyHP;

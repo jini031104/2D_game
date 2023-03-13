@@ -24,7 +24,7 @@ public class SelectSkillCard : MonoBehaviour{
     }
 
     void OnMouseDown(){
-        selectCount = GameObject.Find("skillCardSet").GetComponent<SkillSet>().SelectCount;
+        selectCount = GameObject.Find("nextGame").GetComponent<NextGame>().SelectCount;
 
         if(selectCount != 2)
             if (count == 0){

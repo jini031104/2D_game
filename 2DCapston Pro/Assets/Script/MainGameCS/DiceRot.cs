@@ -33,8 +33,9 @@ public class DiceRot : MonoBehaviour{
     string[] deleteCoinName = new string[] { "clonCoin1(Clone)", "clonCoin2(Clone)", "clonCoin3(Clone)", "clonCoin4(Clone)", "clonCoin5(Clone)", "clonCoin6(Clone)", "clonCoin-(Clone)" };
     string[] deleteEnemyCoinName = new string[] { "eClon1(Clone)", "eClon2(Clone)", "eClon3(Clone)", "eClon4(Clone)", "eClon5(Clone)", "eClon6(Clone)", "eClon-(Clone)" };
 
-    bool click;
-    int clickCount = 0;
+    bool clickDicePiusOne, clickDiceMinusOne;
+    int clickCount;
+    int[] skillCard = new int[] { 0, 0, 0, 0, 0, 0 };
 
     // Start is called before the first frame update
     void Start(){
@@ -54,20 +55,32 @@ public class DiceRot : MonoBehaviour{
         diceStart = true;
         coinDelete = 0;
         clickCount = 0;
+        for (int i = 0; i < skillCard.Length; i++)
+            skillCard[i] = GameObject.Find("skill").GetComponent<SkillOpen>().SelectCard[i];
+        clickDicePiusOne = false;
+        clickDiceMinusOne = false;
     }
 
     // Update is called once per frame
     void Update(){
         playerTurn = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
-        click = GameObject.Find("dicePlusOneCard").GetComponent<DicePiusOne>().Click;
+
+        if(skillCard[3] == 1)
+            clickDicePiusOne = GameObject.Find("dicePlusOneCard").GetComponent<DicePiusOne>().Click;
+        if (skillCard[4] == 1)
+            clickDiceMinusOne = GameObject.Find("diceMinusOneCard").GetComponent<DiceMinusOne>().Click;
+
         if (playerTurn){
             cleanEnemyDiceNum = GameObject.Find("changeButton").GetComponent<ChangeButton>().CleanEnemyDiceNum;
-            if (click){
+            if (clickDicePiusOne){
                 playerDiceNumVall = GameObject.Find("dicePlusOneCard").GetComponent<DicePiusOne>().PlayerDiceNumVall;
                 DiceResult(playerDiceNumVall);
-                click = false;
             }
-            
+            if (clickDiceMinusOne){
+                playerDiceNumVall = GameObject.Find("diceMinusOneCard").GetComponent<DiceMinusOne>().PlayerDiceNumVall;
+                DiceResult(playerDiceNumVall);
+            }
+
             if (cleanEnemyDiceNum < 0){
                 enemyDiceNumVall = cleanEnemyDiceNum;
                 if (!diceRePlay){
@@ -79,12 +92,11 @@ public class DiceRot : MonoBehaviour{
         }
         else{
             cleanPlayerDiceNum = GameObject.Find("changeButton").GetComponent<ChangeButton>().CleanPlayerDiceNum;
-            if (click){
+            if (clickDicePiusOne){
                 enemyDiceNumVall = GameObject.Find("dicePlusOneCard").GetComponent<DicePiusOne>().EnemyDiceNumVall;
                 DiceResult(enemyDiceNumVall);
-                click = false;
             }
-                
+
             if (cleanPlayerDiceNum < 0){
                 playerDiceNumVall = cleanPlayerDiceNum;
                 if (!diceStart){

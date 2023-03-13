@@ -5,43 +5,49 @@ using UnityEngine;
 public class DicePiusOne : MonoBehaviour{
     public int PlayerDiceNumVall => playerDiceNumVall;
     public int EnemyDiceNumVall => enemyDiceNumVall;
-    int playerDiceNumVall, enemyDiceNumVall, count;
+    int playerDiceNumVall, enemyDiceNumVall, plusNum, count;
 
     public bool Click => click;
     bool playerTurn, click;
 
     // Start is called before the first frame update
     void Start(){
-        count = 0;
         click = false;
+        count = 0;
     }
 
     // Update is called once per frame
     void Update(){
+        plusNum = 0;
     }
 
     void OnMouseDown(){
-        click = true;
         playerTurn = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
+        plusNum = 1;
 
-        if(count == 0){
+        if (count == 0){
+            click = true;
             if (playerTurn){
                 playerDiceNumVall = GameObject.Find("dice").GetComponent<DiceRot>().PlayerDiceNumVall;
                 if (playerDiceNumVall < 5)
-                    playerDiceNumVall++;
-                else if(playerDiceNumVall == 5)
+                    playerDiceNumVall += plusNum;
+                else if (playerDiceNumVall == 5)
                     Debug.Log("더이상 추가할 수 없습니다.");
-                Debug.Log("playerDice" + playerDiceNumVall);
+                Debug.Log("playerDiceAfter: " + playerDiceNumVall);
             }
             else{
                 enemyDiceNumVall = GameObject.Find("dice").GetComponent<DiceRot>().EnemyDiceNumVall;
                 if (enemyDiceNumVall < 5)
-                    enemyDiceNumVall++;
+                    enemyDiceNumVall += plusNum;
                 else if (enemyDiceNumVall == 5)
                     Debug.Log("더이상 추가할 수 없습니다.");
-                Debug.Log("enemyDice" + enemyDiceNumVall);
+                Debug.Log("enemyDiceAfter: " + enemyDiceNumVall);
             }
             count++;
         }
+    }
+
+    void OnMouseUp(){
+        click = false;
     }
 }
