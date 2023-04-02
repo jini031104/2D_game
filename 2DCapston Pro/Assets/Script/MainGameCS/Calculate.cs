@@ -150,6 +150,24 @@ public class Calculate : MonoBehaviour
         Debug.Log("플레이어 코인1:" + pCoinCopy[0] + " 코인2:" + pCoinCopy[1] + " 코인3:" + pCoinCopy[2] + " 코인4:" + pCoinCopy[3] + " 코인5:" + pCoinCopy[4] + " 코인6:" + pCoinCopy[5] + " 코인-:" + pCoinCopy[6]);
         Debug.Log("적 코인1:" + eCoinCopy[0] + " 코인2:" + eCoinCopy[1] + " 코인3:" + eCoinCopy[2] + " 코인4:" + eCoinCopy[3] + " 코인5:" + eCoinCopy[4] + " 코인6:" + eCoinCopy[5] + " 코인-:" + eCoinCopy[6]);
         Debug.Log("playerHP: " + playerHP + "             enemyHP: " + enemyHP);
+        Debug.Log("남은 플레이어 코인1:" + pCoinLeft[0] + " 코인2:" + pCoinLeft[1] + " 코인3:" + pCoinLeft[2] + " 코인4:" + pCoinLeft[3] + " 코인5:" + pCoinLeft[4] + " 코인6:" + pCoinLeft[5] + " 코인-:" + pCoinLeft[6]);
+        Debug.Log("남은 적 코인1:" + eCoinLeft[0] + " 코인2:" + eCoinLeft[1] + " 코인3:" + eCoinLeft[2] + " 코인4:" + eCoinLeft[3] + " 코인5:" + eCoinLeft[4] + " 코인6:" + eCoinLeft[5] + " 코인-:" + eCoinLeft[6]);
+
+        int pMin = 0, pCount = 0;
+        int eMin = 0, eCount = 0; ;
+        for(int i=0; i<6; i++){
+            if (0 < pCoinLeft[i] && pCount == 0){
+                pMin = i + 1;
+                pCount++;
+            }
+            if (0 < eCoinLeft[i] && eCount == 0){
+                eMin = i + 1;
+                eCount++;
+            }
+        }
+
+        Debug.Log("남은 플레이어 코인 중 가장 작은 것: " + pMin);
+        Debug.Log("남은 적 코인 중 가장 작은 것: " + eMin);
 
         deleteOK = false;
     }
@@ -169,9 +187,11 @@ public class Calculate : MonoBehaviour
         for (int i = 0; i < 7; i++){
             pCoinCopy[i] = 0;
             eCoinCopy[i] = 0;
-            if (pCoin[6] == 0)
+
+            // -코인 적용.
+            if (pCoin[6] == 0)      // -코인이 0개인 경우, 배치된 코인 개수를 그대로 사용.
                 pCoinCopy[i] = pCoin[i];
-            else if (pCoin[6] == 1)
+            else if (pCoin[6] == 1) // -코인이 있는 경우, 배치된 코인들을 수치만 증가 시켜 방어에 적용.
                 if (pCoin[i] > 0)
                     pCoinCopy[i] = 6;
 
@@ -181,6 +201,7 @@ public class Calculate : MonoBehaviour
                 if (eCoin[i] > 0)
                     eCoinCopy[i] = 6;
 
+            // 코인 개수 계산.
             if (pCoinCopy[i] > eCoinCopy[i]){   // 플레이어 코인이 더 많다.
                 coinLeft = pCoinCopy[i] - eCoinCopy[i];
                 pCoinLeft[i] = coinLeft;
@@ -203,7 +224,7 @@ public class Calculate : MonoBehaviour
         }
     }
 
-    void HpResult(){
+    void HpResult(){    // HP 계산.
         if (attack)
             for (int i = 0; i < 6; i++){
                 damage = (i + 1) * pCoinLeft[i];

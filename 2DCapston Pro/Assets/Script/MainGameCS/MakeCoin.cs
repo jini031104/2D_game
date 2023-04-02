@@ -35,7 +35,7 @@ public class MakeCoin : MonoBehaviour
     }
 
     void OnMouseDown() {
-        if (coinMakeOk && coinMakeClear){
+        if (coinMakeOk && coinMakeClear){   // 코인을 만들고 그 개수를 확인한다.
             Instantiate(coinPrefab, new Vector3(-3 + coinSpawn, -2, 0), Quaternion.identity);
             switch (coinPrefab.name){
                 case "clonCoin1":

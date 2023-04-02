@@ -65,13 +65,14 @@ public class DiceRot : MonoBehaviour{
     void Update(){
         playerTurn = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
 
+        // Skill Check
         if(skillCard[3] == 1)
             clickDicePiusOne = GameObject.Find("dicePlusOneCard").GetComponent<DicePiusOne>().Click;
         if (skillCard[4] == 1)
             clickDiceMinusOne = GameObject.Find("diceMinusOneCard").GetComponent<DiceMinusOne>().Click;
 
+        // Skill Use
         if (playerTurn){
-            cleanEnemyDiceNum = GameObject.Find("changeButton").GetComponent<ChangeButton>().CleanEnemyDiceNum;
             if (clickDicePiusOne){
                 playerDiceNumVall = GameObject.Find("dicePlusOneCard").GetComponent<DicePiusOne>().PlayerDiceNumVall;
                 DiceResult(playerDiceNumVall);
@@ -81,6 +82,7 @@ public class DiceRot : MonoBehaviour{
                 DiceResult(playerDiceNumVall);
             }
 
+            cleanEnemyDiceNum = GameObject.Find("changeButton").GetComponent<ChangeButton>().CleanEnemyDiceNum;
             if (cleanEnemyDiceNum < 0){
                 enemyDiceNumVall = cleanEnemyDiceNum;
                 if (!diceRePlay){
@@ -121,6 +123,7 @@ public class DiceRot : MonoBehaviour{
         if (!diceStart){
             Debug.Log("더이상 주사위를 굴릴 수 없습니다.");
             if (clickCount == 0 && GameObject.Find("diceRePlayCard")){
+                // 리플레이 카드를 클릭했을 경우, 다시 주사위를 굴릴 수 있다.
                 diceStart = GameObject.Find("diceRePlayCard").GetComponent<RePlayDice>().StartDice;
                 if (diceStart){
                     Debug.Log("다시 주사위를 굴렸습니다.");

@@ -21,13 +21,11 @@ public class RePlayDice : MonoBehaviour
     }
 
     void OnMouseDown(){
-        if (count == 0)
-        {
+        if (count == 0){
             startDice = true;
             Debug.Log("주사위 다시 굴리기 가능");
         }
-        else
-        {
+        else{
             startDice = false;
             Debug.Log("이미 스킬을 사용했습니다.");
         }

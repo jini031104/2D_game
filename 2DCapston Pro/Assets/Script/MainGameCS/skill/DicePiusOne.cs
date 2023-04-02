@@ -29,7 +29,7 @@ public class DicePiusOne : MonoBehaviour{
             click = true;
             if (playerTurn){
                 playerDiceNumVall = GameObject.Find("dice").GetComponent<DiceRot>().PlayerDiceNumVall;
-                if (playerDiceNumVall < 5)
+                if (playerDiceNumVall < 5)  // 주사위 값이 6보다 작은 경우에만 가능하다.
                     playerDiceNumVall += plusNum;
                 else if (playerDiceNumVall == 5)
                     Debug.Log("더이상 추가할 수 없습니다.");

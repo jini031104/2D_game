@@ -29,7 +29,7 @@ public class DiceMinusOne : MonoBehaviour{
             click = true;
             if (playerTurn){
                 playerDiceNumVall = GameObject.Find("dice").GetComponent<DiceRot>().PlayerDiceNumVall;
-                if (playerDiceNumVall >= 1)
+                if (playerDiceNumVall >= 1)     // 주사위 값이 1보다 큰 경우에만 가능하다.
                     playerDiceNumVall += minusNum;
                 else if (playerDiceNumVall == 0)
                     Debug.Log("더이상 뺄 수 없습니다.");

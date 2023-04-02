@@ -25,12 +25,10 @@ public class SelectSkillCard : MonoBehaviour{
 
     void OnMouseDown(){
         selectCount = GameObject.Find("nextGame").GetComponent<NextGame>().SelectCount;
-
-        if(selectCount != 2)
+        if(selectCount != 2)    // 스킬은 2개만 선택할 수 있다.
             if (count == 0){
                 Instantiate(cardClick, cardClick.transform.position, Quaternion.identity);
-                switch (cardPrefab.name)
-                {
+                switch (cardPrefab.name){
                     case "skillLockCard":
                         selectCard[0] = 1;
                         break;

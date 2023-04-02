@@ -42,11 +42,15 @@ public class ClonCoinLimit : MonoBehaviour
 
         coinSpawn = clonCoinTag.Length;
 
+        CoinSameCheck();
+    }
+
+    void CoinSameCheck(){
         if (clonCoinTag.Length == pDiceNum){    // 주사위 값과 생성된 코인 수가 동일할 때 바뀐다.
             coinMakeClear = false;
             diceChang = true;  // ChangeButton 스크립트로 보낸다.
         }
-        else if(enemyClonCoinTag.Length == eDiceNum){
+        else if (enemyClonCoinTag.Length == eDiceNum){
             enemyCoinMakeClear = false;
             diceChang = true;
             //calculateActive = true;

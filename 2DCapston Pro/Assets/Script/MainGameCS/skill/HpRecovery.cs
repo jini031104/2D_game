@@ -30,6 +30,7 @@ public class HpRecovery : MonoBehaviour{
         cardClick = true;
         if (playerTurn){
             playerHP = GameObject.Find("startButton").GetComponent<Calculate>().PlayerHP;
+            // HP가 30 미만일 때만 회복 가능.
             if (playerHP < 30 && playerCount == 0)
                 playerHP += 2;
             if (playerHP > 30)
