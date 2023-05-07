@@ -29,6 +29,7 @@ public class Calculate : MonoBehaviour
     int coinLeft, playerHP, enemyHP, damage;
 
     string[] coinName = new string[] { "coin1", "coin2", "coin3", "coin4", "coin5", "coin6", "coin-" };
+    string[] enemyCoinName = new string[] { "ecoin1", "ecoin2", "ecoin3", "ecoin4", "ecoin5", "ecoin6", "ecoin-" };
     string[] deleteCoinName = new string[] { "clonCoin1(Clone)", "clonCoin2(Clone)", "clonCoin3(Clone)", "clonCoin4(Clone)", "clonCoin5(Clone)", "clonCoin6(Clone)", "clonCoin-(Clone)" };
     string[] deleteEnemyCoinName = new string[] { "eClon1(Clone)", "eClon2(Clone)", "eClon3(Clone)", "eClon4(Clone)", "eClon5(Clone)", "eClon6(Clone)", "eClon-(Clone)" };
 
@@ -74,14 +75,21 @@ public class Calculate : MonoBehaviour
     void Update(){
         attack = GameObject.Find("delete_Coin").GetComponent<delete_Coin>().Attack;
 
-        if (attack)
-            for (int i=0; i<6; i++)
+        if (attack){
+            for (int i = 0; i < 6; i++)
                 pCoin[i] = GameObject.Find(coinName[i]).GetComponent<MakeCoin>().PCoin[i];
-        else
-            for (int i=0; i<7; i++)
+            for (int i = 0; i < 7; i++)
+                eCoin[i] = GameObject.Find(enemyCoinName[i]).GetComponent<EnemyMakeClickCoin>().ECoin[i];
+        }
+        else{
+            for (int i = 0; i < 7; i++)
                 pCoin[i] = GameObject.Find(coinName[i]).GetComponent<MakeCoin>().PCoin[i];
+            for (int i = 0; i < 6; i++)
+                eCoin[i] = GameObject.Find(enemyCoinName[i]).GetComponent<EnemyMakeClickCoin>().ECoin[i];
+        }
 
-        eCoin = GameObject.Find("enemyCoin").GetComponent<EnemyMakeCoin>().ECoin;
+        //게임 자동 진행 때는 얘가 필요.....
+        //eCoin = GameObject.Find("enemyCoin").GetComponent<EnemyMakeCoin>().ECoin;
 
         //cardClick = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().CardClick;
         //playerTurnCheck = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;

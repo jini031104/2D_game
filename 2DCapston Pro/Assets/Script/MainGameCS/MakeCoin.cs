@@ -61,6 +61,5 @@ public class MakeCoin : MonoBehaviour
                     break;
             }
         }
-        coinSpawn++;
     }
 }

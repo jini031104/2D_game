@@ -21,6 +21,8 @@ public class ClonCoinLimit : MonoBehaviour
 
     public int CoinSpawn => coinSpawn;
     int coinSpawn;
+    public int EnemyCoinSpawn => enemyCoinSpawn;
+    int enemyCoinSpawn;
 
     // Start is called before the first frame update
     void Start(){
@@ -41,6 +43,7 @@ public class ClonCoinLimit : MonoBehaviour
         eDiceNum = enemyDiceNumVall + 1;
 
         coinSpawn = clonCoinTag.Length;
+        enemyCoinSpawn = enemyClonCoinTag.Length;
 
         CoinSameCheck();
     }
@@ -58,6 +61,7 @@ public class ClonCoinLimit : MonoBehaviour
         else{
             diceChang = false;
             coinMakeClear = true;
+            enemyCoinMakeClear = true;
             calculateActive = false;
         }
     }

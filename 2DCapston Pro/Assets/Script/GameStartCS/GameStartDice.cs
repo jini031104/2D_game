@@ -30,6 +30,8 @@ public class GameStartDice : MonoBehaviour
     bool firstChoice = false;
     bool diceDrop = false;
 
+    bool multiSelect, singleSelect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,26 +42,32 @@ public class GameStartDice : MonoBehaviour
         dVall = diceVall.GetLength(0);
         rVall = rotationVal.GetLength(0);
 
+        multiSelect = MultiButton.multiSelect;
+        singleSelect = SingleButton.singleSelect;
+
         Button.SetActive(false);    // 게임 시작시, 공/방 버튼은 비활성 처리한다.
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(diceDrop)
-        {
-            if(enemyDiceVal < playerDiceVal){
+        if(diceDrop){
+            if(singleSelect)
+                if(enemyDiceVal < playerDiceVal){
+                    Button.SetActive(true);
+                    firstChoice = true;
+                    //gameStart();
+                }
+                else if(enemyDiceVal == playerDiceVal)
+                {
+                    firstChoice = false;
+                    diceDrop = false;
+                }
+                else
+                    gameStart();
+
+            if (multiSelect)
                 Button.SetActive(true);
-                firstChoice = true;
-                //gameStart();
-            }
-            else if(enemyDiceVal == playerDiceVal)
-            {
-                firstChoice = false;
-                diceDrop = false;
-            }
-            else
-                gameStart();
         }
 
         SmallDice(playerDice, playerDiceScale);

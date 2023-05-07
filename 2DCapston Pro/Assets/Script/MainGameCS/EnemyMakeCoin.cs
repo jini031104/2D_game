@@ -34,14 +34,18 @@ public class EnemyMakeCoin : MonoBehaviour
                 eCoin[i] = 0;
         }
 
+        //AutoGame();
+    }
+
+    void AutoGame() {
         if (!playerTurn)
             if (Input.GetMouseButtonDown(1)){
                 for (int i = 0; i < diceNum; i++){
                     if (attack){
-                        if(eCoin[6] == 1)
+                        if (eCoin[6] == 1)
                             randomCoin = Random.Range(0, 6);
                         else{
-                            if(diceNum == 1)
+                            if (diceNum == 1)
                                 randomCoin = Random.Range(0, 6);
                             else
                                 randomCoin = Random.Range(0, 7);
