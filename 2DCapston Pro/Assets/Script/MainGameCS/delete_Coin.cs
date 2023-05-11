@@ -9,15 +9,29 @@ public class delete_Coin : MonoBehaviour
 
     public bool Attack => attack;
     bool attack, defense;
+    bool multiSelect, singleSelect, enemySelectTurn;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        //이걸로 적 주사위가 공방 선택할 수 있게 함.
-        attack = AttackAndDefenseSelect.attack;
-        defense = AttackAndDefenseSelect.defense;
+    void Start(){
+        multiSelect = MultiButton.multiSelect;
+        singleSelect = SingleButton.singleSelect;
+        enemySelectTurn = GameStartDice.enemySelectTurn;
 
-        if (!attack && !defense)
+        //이걸로 적 주사위가 공방 선택할 수 있게 함.
+        if (singleSelect){      //싱글 기준 플레이어 우선권
+            attack = AttackAndDefenseSelect.attack;
+            defense = AttackAndDefenseSelect.defense;
+        }
+        else if(multiSelect && enemySelectTurn){    //멀티 기준 적 우선권
+            defense = AttackAndDefenseSelect.attack;
+            attack = AttackAndDefenseSelect.defense;
+        }
+        else if (multiSelect && !enemySelectTurn){  //멀티 기준 플레이어 우선권
+            attack = AttackAndDefenseSelect.attack;
+            defense = AttackAndDefenseSelect.defense;
+        }
+
+        if (!attack && !defense)    // 싱글 플레이에서 적이 먼저 공방 정할 경우
             EnemySelectAttackOrDefense();
         DeleteCoin();
     }

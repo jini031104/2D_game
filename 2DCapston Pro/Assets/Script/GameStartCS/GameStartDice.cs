@@ -28,13 +28,15 @@ public class GameStartDice : MonoBehaviour
     
     public bool FirstChoice => firstChoice;
     bool firstChoice = false;
-    bool diceDrop = false;
+    bool diceDrop = false, diceRoll = false;
 
     bool multiSelect, singleSelect;
+    public static bool enemySelectTurn;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
+        enemySelectTurn = false;
+
         // 주사위의 크기 값을 가져옴.
         playerDiceScale = playerDice.gameObject.transform.localScale;
         enemyDiceScale = enemyDice.gameObject.transform.localScale;
@@ -49,8 +51,7 @@ public class GameStartDice : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         if(diceDrop){
             if(singleSelect)
                 if(enemyDiceVal < playerDiceVal){
@@ -58,15 +59,14 @@ public class GameStartDice : MonoBehaviour
                     firstChoice = true;
                     //gameStart();
                 }
-                else if(enemyDiceVal == playerDiceVal)
-                {
+                else if(enemyDiceVal == playerDiceVal){
                     firstChoice = false;
                     diceDrop = false;
                 }
                 else
                     gameStart();
 
-            if (multiSelect)
+            if (multiSelect && enemyDiceVal != playerDiceVal)
                 Button.SetActive(true);
         }
 
@@ -83,14 +83,28 @@ public class GameStartDice : MonoBehaviour
     }
 
     private void OnMouseDown(){ // 주사위를 클릭하면, 주사위가 커진다.
-        playerDice.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-        enemyDice.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        if (!diceRoll){
+            playerDice.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            enemyDice.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        }
     }
 
     private void OnMouseUp(){   // 주사위를 굴린다.
-        DiceDrpoAndValSet(playerDice);
-        DiceDrpoAndValSet(enemyDice);
+        if (!diceRoll){
+            DiceDrpoAndValSet(playerDice);
+            DiceDrpoAndValSet(enemyDice);
+        }
+
         diceSmall = true;
+        if (playerDiceVal > enemyDiceVal)
+            Debug.Log("플레이어 우선권");
+        else if (playerDiceVal < enemyDiceVal){
+            enemySelectTurn = true;
+            Debug.Log("적 우선권");
+        }
+        else if(playerDiceVal == enemyDiceVal)
+            Debug.Log("다시 굴리기");
+        Debug.Log("playerDiceVal: " + playerDiceVal + "enemyDiceVal: " + enemyDiceVal);
     }
 
     public void DiceDrpoAndValSet(GameObject Dice){   // 주사위 값 세팅
@@ -107,8 +121,7 @@ public class GameStartDice : MonoBehaviour
 
     void SmallDice(GameObject Dice, Vector3 diceScale){ // 주사위가 떨어지는 동안 점점 작아짐.
         if (diceSmall){
-            if (Dice.transform.localScale.x > diceScale.x)
-            {
+            if (Dice.transform.localScale.x > diceScale.x){
                 Dice.transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
             }
             else{
@@ -117,6 +130,8 @@ public class GameStartDice : MonoBehaviour
                 diceSmall = false;
                 gameStartCheck = true;
                 diceDrop = true;
+                if(playerDiceVal != enemyDiceVal)
+                    diceRoll = true;
             }
         }
     }
