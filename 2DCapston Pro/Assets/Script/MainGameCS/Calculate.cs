@@ -78,27 +78,18 @@ public class Calculate : MonoBehaviour
         if (attack){
             for (int i = 0; i < 6; i++)
                 pCoin[i] = GameObject.Find(coinName[i]).GetComponent<MakeCoin>().PCoin[i];
-            for (int i = 0; i < 7; i++)
-                eCoin[i] = GameObject.Find(enemyCoinName[i]).GetComponent<EnemyMakeClickCoin>().ECoin[i];
+            //for (int i = 0; i < 7; i++)
+            //    eCoin[i] = GameObject.Find(enemyCoinName[i]).GetComponent<EnemyMakeClickCoin>().ECoin[i];
         }
         else{
             for (int i = 0; i < 7; i++)
                 pCoin[i] = GameObject.Find(coinName[i]).GetComponent<MakeCoin>().PCoin[i];
-            for (int i = 0; i < 6; i++)
-                eCoin[i] = GameObject.Find(enemyCoinName[i]).GetComponent<EnemyMakeClickCoin>().ECoin[i];
+            //for (int i = 0; i < 6; i++)
+            //    eCoin[i] = GameObject.Find(enemyCoinName[i]).GetComponent<EnemyMakeClickCoin>().ECoin[i];
         }
 
         //게임 자동 진행 때는 얘가 필요.....
-        //eCoin = GameObject.Find("enemyCoin").GetComponent<EnemyMakeCoin>().ECoin;
-
-        //cardClick = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().CardClick;
-        //playerTurnCheck = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
-        //if (cardClick){
-        //    if (playerTurnCheck)
-        //        playerHP = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().PlayerHP;
-        //    else
-        //        enemyHP = GameObject.Find("hpRecoveryCard").GetComponent<HpRecovery>().EnemyHP;
-        //}
+        eCoin = GameObject.Find("enemyCoin").GetComponent<EnemyMakeCoin>().ECoin;
 
         playerHpText.text = " " + playerHP;
         enemyHpText.text = " " + enemyHP;
@@ -162,7 +153,7 @@ public class Calculate : MonoBehaviour
         Debug.Log("남은 적 코인1:" + eCoinLeft[0] + " 코인2:" + eCoinLeft[1] + " 코인3:" + eCoinLeft[2] + " 코인4:" + eCoinLeft[3] + " 코인5:" + eCoinLeft[4] + " 코인6:" + eCoinLeft[5] + " 코인-:" + eCoinLeft[6]);
 
         int pMin = 0, pCount = 0;
-        int eMin = 0, eCount = 0; ;
+        int eMin = 0, eCount = 0;
         for(int i=0; i<6; i++){
             if (0 < pCoinLeft[i] && pCount == 0){
                 pMin = i + 1;

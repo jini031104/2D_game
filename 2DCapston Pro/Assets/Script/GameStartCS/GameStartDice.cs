@@ -78,7 +78,7 @@ public class GameStartDice : MonoBehaviour
     public void gameStart(){
         if(gameStartCheck){
             if(Input.GetMouseButtonDown(0))
-                SceneManager.LoadScene("SkillSelect");
+                SceneManager.LoadScene("MainGameCS");
         }
     }
 
@@ -114,7 +114,7 @@ public class GameStartDice : MonoBehaviour
         int valIndex;
         valIndex = Random.Range(0, dVall);
         if(Dice.name == "playerDice")
-            playerDiceVal = valIndex;
+            playerDiceVal = 0;
         if(Dice.name == "enemyDice")
             enemyDiceVal = valIndex;
     }

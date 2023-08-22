@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMakeClickCoin : MonoBehaviour
-{
+public class EnemyMakeClickCoin : MonoBehaviour{
     [SerializeField]
     GameObject coinPrefab;
 
@@ -30,7 +29,6 @@ public class EnemyMakeClickCoin : MonoBehaviour
                 eCoin[i] = 0;
         }
     }
-
     void OnMouseDown(){
         if (!playerTurn && coinMakeOk && enemyCoinMakeClear){
             Instantiate(coinPrefab, new Vector3(-3 + coinSpawn, 2, 0), Quaternion.identity);

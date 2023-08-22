@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MakeCoin : MonoBehaviour
-{
+public class MakeCoin : MonoBehaviour{
     [SerializeField]
     GameObject coinPrefab;
     [SerializeField]

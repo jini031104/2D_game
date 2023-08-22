@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMakeCoin : MonoBehaviour
-{
+public class EnemyMakeCoin : MonoBehaviour{
     [SerializeField]
     GameObject[] enemyCoin;
 
@@ -34,7 +33,7 @@ public class EnemyMakeCoin : MonoBehaviour
                 eCoin[i] = 0;
         }
 
-        //AutoGame();
+        AutoGame();
     }
 
     void AutoGame() {

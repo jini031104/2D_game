@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlagMove : MonoBehaviour
-{
+public class FlagMove : MonoBehaviour{
     [SerializeField]
     GameObject[] flag;
 
@@ -16,8 +15,7 @@ public class FlagMove : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         playerTurn = GameObject.Find("changeButton").GetComponent<ChangeButton>().PlayerTurn;
 
         if (playerTurn){
